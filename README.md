@@ -4,7 +4,7 @@ Java version of the game Battleship.
 
 ## Code Location 
 
-The demo 1 version can be found in the master branch containing files Player, Ship, and Board. T
+The demo 1 version can be found in the master branch containing files Player, Ship, and Board. 
 
 ## Intallation and Running 
 
