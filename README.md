@@ -16,4 +16,3 @@ JDK
 
 ## Class Diagram
 
-<img width="646" alt="class diagram" src="https://user-images.githubusercontent.com/47372331/53395443-1ba53900-395f-11e9-8dad-9ab9f6986657.png">
