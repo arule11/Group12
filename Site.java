@@ -24,9 +24,4 @@ public class Site {
 		}
 	}
 	
-	
-	//setHit
-	
-//	setMiss
-
 }

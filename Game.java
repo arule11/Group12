@@ -12,39 +12,41 @@ public class Game {
         newPlayer.playerBoard.showBoard();
         Player compPlayer = new Player();
         Player testPlayer = new Player();
-        setupPlayer(newPlayer);
+        //setupPlayer(newPlayer);
         //setupComp(compPlayer);
         setupTest(testPlayer);
         
     // Players guess where ships are.
-        
-    }
+        	playerGuess(testPlayer);
+
+        }
+
     
     public static void setupPlayer(Player player) {
     	
        	// Setup players ships
     	for (Ship ship : player.playerShips) {
             System.out.println("\nShip is " + ship.length + " spaces long.");
-            chooseRow(ship);
-            chooseColumn(ship);
-            chooseDirection(ship);
+            ship.row = chooseRow();
+            ship.column = chooseColumn();
+            ship.direction = chooseDirection();
             // Error check: Out of Bounds ship
             while (ship.inBounds() == false){
             	System.out.println("\nYour ship is out of bounds.");
             	System.out.println("Ship is " + ship.length + " spaces long.");
             	player.playerBoard.showBoard();
-            	chooseRow(ship);
-                chooseColumn(ship);
-                chooseDirection(ship);
+            	ship.row = chooseRow();
+                ship.column = chooseColumn();
+                ship.direction = chooseDirection();
             }
             // Error check: Ship on another ship
             while (player.playerBoard.freeSpace(ship) == false) {
             	System.out.println("\nYour ship is on another ship.");
             	System.out.println("Ship is " + ship.length + " spaces long.");
             	player.playerBoard.showBoard();
-            	chooseRow(ship);
-                chooseColumn(ship);
-                chooseDirection(ship);
+            	ship.row = chooseRow();
+                ship.column = chooseColumn();
+                ship.direction = chooseDirection();
             }
             
             player.playerBoard.addShip(ship);
@@ -107,7 +109,7 @@ public class Game {
     	compPlayer.playerBoard.showBoard();
     }
 
-    public static void chooseRow(Ship ship) {
+    public static int chooseRow() {
     	System.out.print("Choose a row (1-10): ");
     	boolean check = true;
     	int userInputRow = 0;
@@ -125,10 +127,10 @@ public class Game {
                   reader.nextLine();
               }
         }
-    	ship.row = userInputRow;
+    	return userInputRow;
     }
     
-    public static void chooseColumn(Ship ship) {
+    public static int chooseColumn() {
         System.out.print("Choose a column (A-J): ");
         boolean check = true;
         char userInputCol = 'A';
@@ -147,10 +149,10 @@ public class Game {
         	}
         }
         userInputCol = Character.toUpperCase(userInputCol);
-        ship.column = (int)(userInputCol - 65);
+        return (int)(userInputCol - 65);
     }
     
-    public static void chooseDirection(Ship ship) {
+    public static char chooseDirection() {
 
     	System.out.print("Choose a direction: Horizontal or Vertical (H or V): ");
         char userInputDir = reader.next().charAt(0);
@@ -160,16 +162,24 @@ public class Game {
         	userInputDir = reader.next().charAt(0);
         	userInputDir = Character.toUpperCase(userInputDir);
         	}
-        ship.direction = userInputDir;
+        return userInputDir;
     	
     }
 
-   
-	
+    public static void playerGuess(Player opponent) {
+    	System.out.println("Guess where your opponent's ship is.");
+    	int rowGuess = chooseRow();
+    	int columnGuess = chooseColumn();
+    	boolean checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    	if (checkGuess == true) {
+    		System.out.println("You hit their battleship!");
+    	} else {
+    		System.out.println("You missed!");
+    	}
+    }
     
-
-
-
+    
+    
 }
 
 

@@ -59,5 +59,20 @@ public class Board {
         }
     }
 	
-   
+	public boolean checkGuess(int rowGuess, int columnGuess) {
+		if (board[rowGuess][columnGuess].status == 1) {
+			markHit(rowGuess, columnGuess);
+			return true;
+		}
+		markMiss(rowGuess, columnGuess);
+		return false;
+	}
+    public void markHit(int rowGuess, int columnGuess) {
+    	board[rowGuess][columnGuess].status = 2;
+    }
+    
+    public void markMiss(int rowGuess, int columnGuess) {
+    	board[rowGuess][columnGuess].status = 3;
+    }
+	
 }
