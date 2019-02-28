@@ -11,6 +11,7 @@ public class Site {
 	public Site() {
 		this.status = 0;
 	}
+	
 	public void siteMark() {
 		if (status == 0) {
 			System.out.print(noShip);
@@ -27,8 +28,5 @@ public class Site {
 	//setHit
 	
 //	setMiss
-	
-//	setShip
-	
-	
+
 }
