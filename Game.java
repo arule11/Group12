@@ -2,6 +2,7 @@
 import java.util.*;
 
 public class Game {
+	public static int points = 12;
 	
 	public static Scanner reader = new Scanner(System.in);
  
@@ -15,12 +16,13 @@ public class Game {
         setupComp(compPlayer);
         
     // Players guess where ships are.
-        while (player1.playerBoard.sunkShips != 12 && compPlayer.playerBoard.sunkShips != 12) {
-        	playerGuess(compPlayer);
-        	compGuess(player1);	
+        while (player1.playerBoard.sunkShips != points && compPlayer.playerBoard.sunkShips != points) {
+        	playerGuess(compPlayer, player1);
+        	compGuess(player1, compPlayer);	
         }    
         
-        if (player1.playerBoard.sunkShips == 12) {
+   // Game ends when all of one players ships are sunk.
+        if (player1.playerBoard.sunkShips == points) {
         	System.out.println("You lost!");
         } else {
         	System.out.println("You won!");
@@ -97,7 +99,6 @@ public class Game {
         				compShip.direction = 'V';
         			}
     		}	
-    		System.out.println(compShip.row + "  " + compShip.column  + "  " + compShip.direction);
     		while (compPlayer.playerBoard.freeSpace(compShip) == false) {
         		compShip.column = random.nextInt(10);
         		compShip.row = random.nextInt(10);
@@ -110,7 +111,6 @@ public class Game {
     		}
     		compPlayer.playerBoard.addShip(compShip);
     	}
-    	compPlayer.playerBoard.showBoard();
     }
 
     public static int chooseRow() {
@@ -170,21 +170,28 @@ public class Game {
     	
     }
 
-    public static void playerGuess(Player opponent) {
+    public static void playerGuess(Player opponent, Player guessingPlayer) {
+    	System.out.println("Here's your opponent's board:");
+    	guessingPlayer.oppBoard.showBoard();
     	System.out.println("Guess where your opponent's ship is.");
     	int rowGuess = chooseRow();
     	int columnGuess = chooseColumn();
     	int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
     	if (checkGuess == 1) {
     		System.out.println("You hit their battleship!");
+    		guessingPlayer.oppBoard.markHit(rowGuess, columnGuess);
     	} else if (checkGuess == 0){
     		System.out.println("You missed!");
+    		guessingPlayer.oppBoard.markMiss(rowGuess, columnGuess);
     	} else if (checkGuess == -1){
     		System.out.println("You already guessed that spot. Guess again.");
     	}
+    	System.out.println("Here's your opponent's board:");
+    	guessingPlayer.oppBoard.showBoard();
+    	
     }
     
-    public static void compGuess(Player opponent) {
+    public static void compGuess(Player opponent, Player compPlayer) {
     	Random random = new Random(); 
     	int rowGuess = random.nextInt(10);
     	int columnGuess = random.nextInt(10);
@@ -199,7 +206,8 @@ public class Game {
     	} else if (checkGuess == 0){
     		System.out.println("Your opponent missed!");	
     	}
-   
+    	System.out.println("Here's your board:");
+    	opponent.playerBoard.showBoard();
     }
     
 }

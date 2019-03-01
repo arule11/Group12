@@ -74,7 +74,8 @@ public class Board {
 		
 		return 0;
 	}
-    public void markHit(int rowGuess, int columnGuess) {
+  
+	public void markHit(int rowGuess, int columnGuess) {
     	board[rowGuess][columnGuess].status = 2;
     }
     
