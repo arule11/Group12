@@ -1,14 +1,17 @@
-# Battleship Project - Group 12 (Demo 1 Version)
+# Battleship Project - Group 12 
 
-Java version of the game Battleship.
+Java console version of the game Battleship.
 
 ## Code Location 
 
-The demo 1 version can be found in the master branch containing files Player, Ship, and Board. 
+The full version can be found in the master branch containing files Player, Ship, and Board, Game and Site. 
 
-## Intallation and Running 
+## Installation and Running 
 
-The game is not currently tied together but each of these files can be complied and run individually.
+1. Clone Player, Ship, and Board, Game and Site java files to a new desktop folder.
+2. Change directory to desktop folder.
+3. Use javac *.java to compile all classes.
+4. Use java Game to play Battleship.
 
 ## Requirements
 
