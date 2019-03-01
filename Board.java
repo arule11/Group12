@@ -2,6 +2,8 @@
 public class Board {
 	// Board is a ten by ten array of sites, each with a status of 0
 	public Site[][] board = new Site[10][10];
+	public int sunkShips = 0;
+	
 	
 	public Board() {	
 	}
@@ -59,13 +61,18 @@ public class Board {
         }
     }
 	
-	public boolean checkGuess(int rowGuess, int columnGuess) {
+	public int checkGuess(int rowGuess, int columnGuess) {
 		if (board[rowGuess][columnGuess].status == 1) {
 			markHit(rowGuess, columnGuess);
-			return true;
-		}
+			sunkShips ++;
+			return 1;
+		} else if (board[rowGuess][columnGuess].status == 2) {
+			return -1;
+		} else {
 		markMiss(rowGuess, columnGuess);
-		return false;
+		}
+		
+		return 0;
 	}
     public void markHit(int rowGuess, int columnGuess) {
     	board[rowGuess][columnGuess].status = 2;

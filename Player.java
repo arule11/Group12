@@ -4,6 +4,7 @@ public class Player {
 
 	public Ship[] playerShips;
 	public Board playerBoard = new Board();
+
 	
 	public Player() {
 		// Each player has a new board

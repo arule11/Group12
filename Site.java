@@ -1,9 +1,9 @@
 
 public class Site {
 
-	public static final String shipSite = "+";
 	public static final String noShip = "-" ;
-	public static final String hit = "1";
+	public static final String shipSite = "+";
+	public static final String hit = "X";
 	public static final String miss = "0";
 		
 	public int status;

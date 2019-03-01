@@ -8,20 +8,25 @@ public class Game {
     public static void main(String[] args) {
     // Players set up ships.
         System.out.println("Welcome to Battleship");
-        Player newPlayer = new Player();
-        newPlayer.playerBoard.showBoard();
+        Player player1 = new Player();
+        player1.playerBoard.showBoard();
         Player compPlayer = new Player();
-        Player testPlayer = new Player();
-        //setupPlayer(newPlayer);
-        //setupComp(compPlayer);
-        setupTest(testPlayer);
+        setupPlayer(player1);
+        setupComp(compPlayer);
         
     // Players guess where ships are.
-        	playerGuess(testPlayer);
-
+        while (player1.playerBoard.sunkShips != 12 && compPlayer.playerBoard.sunkShips != 12) {
+        	playerGuess(compPlayer);
+        	compGuess(player1);	
+        }    
+        
+        if (player1.playerBoard.sunkShips == 12) {
+        	System.out.println("You lost!");
+        } else {
+        	System.out.println("You won!");
         }
-
-    
+    }
+  
     public static void setupPlayer(Player player) {
     	
        	// Setup players ships
@@ -74,18 +79,17 @@ public class Game {
     	System.out.println("Computer is placing their ships...");
     	Random random = new Random(); 
     	for (Ship compShip : compPlayer.playerShips) {
-    		compShip.column = random.nextInt(10) + 1;
-    		compShip.row = random.nextInt(10) + 1;
+    		compShip.column = random.nextInt(10);
+    		compShip.row = random.nextInt(10);
     		boolean randomDirection = random.nextBoolean();
     			if (randomDirection = true) {
     				compShip.direction = 'H';
     			} else {
     				compShip.direction = 'V';
     			}
-    		System.out.println(compShip.row + "  " + compShip.column  + "  " + compShip.direction);
     		while(compShip.inBounds() == false) {
-        		compShip.column = random.nextInt(10) + 1;
-        		compShip.row = random.nextInt(10) + 1;
+        		compShip.column = random.nextInt(10);
+        		compShip.row = random.nextInt(10);
         		randomDirection = random.nextBoolean();
         			if (randomDirection = true) {
         				compShip.direction = 'H';
@@ -95,8 +99,8 @@ public class Game {
     		}	
     		System.out.println(compShip.row + "  " + compShip.column  + "  " + compShip.direction);
     		while (compPlayer.playerBoard.freeSpace(compShip) == false) {
-        		compShip.column = random.nextInt(10) + 1;
-        		compShip.row = random.nextInt(10) + 1;
+        		compShip.column = random.nextInt(10);
+        		compShip.row = random.nextInt(10);
         		randomDirection = random.nextBoolean();
         			if (randomDirection = true) {
         				compShip.direction = 'H';
@@ -170,15 +174,33 @@ public class Game {
     	System.out.println("Guess where your opponent's ship is.");
     	int rowGuess = chooseRow();
     	int columnGuess = chooseColumn();
-    	boolean checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
-    	if (checkGuess == true) {
+    	int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    	if (checkGuess == 1) {
     		System.out.println("You hit their battleship!");
-    	} else {
+    	} else if (checkGuess == 0){
     		System.out.println("You missed!");
+    	} else if (checkGuess == -1){
+    		System.out.println("You already guessed that spot. Guess again.");
     	}
     }
     
-    
+    public static void compGuess(Player opponent) {
+    	Random random = new Random(); 
+    	int rowGuess = random.nextInt(10);
+    	int columnGuess = random.nextInt(10);
+    	int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    	while (checkGuess == -1) {
+    		rowGuess = random.nextInt(10);
+	    	columnGuess = random.nextInt(10);
+	    	checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    		}
+    	if (checkGuess == 1) {
+    		System.out.println("Your ship was hit!");
+    	} else if (checkGuess == 0){
+    		System.out.println("Your opponent missed!");	
+    	}
+   
+    }
     
 }
 
