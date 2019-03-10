@@ -2,6 +2,10 @@
 
 Java console version of the game Battleship.
 
+## Game Description
+
+Two player game played using two 10x10 game boards. Initially players will place their ships on their respective board. Players cannot see where the other player has placed their ships. Once all ships have been placed, players will take turns guessing coordinates on the other player's board where they think a ship has been placed. If the guessed coordinates have a ship placed on it, the player guessing will be notified of a hit. If the guessed coordinates do not have a ship placed on it, the player guessing will be notified of a miss. Players will take turns guessing until all of one player's ships are sunk. The player to sink all of the other player's ships first wins.
+
 ## Code Location 
 
 The full version can be found in the master branch containing files Player, Ship, and Board, Game and Site. 
