@@ -3,25 +3,25 @@ public class Board {
 	// Board is a ten by ten array of sites, each with a status of 0
 	public Site[][] board = new Site[10][10];
 	public int sunkShips = 0;
-	
-	
-	public Board() {	
+
+
+	public Board() {
 	}
-	
+
 	public void initBoard() {
-		 for(int row=0 ; row < 10 ; row++ ){
-			 for(int column=0 ; column < 10 ; column++ ){
+		 for(int row = 0 ; row < 10 ; row++ ){
+			 for(int column = 0 ; column < 10 ; column++ ){
 				 Site site = new Site();
 	            	board[row][column] = site;
 	            	site.status = 0;
 			 }
 		 }
 	}
-	
-	public void showBoard(){	
+
+	public void showBoard(){
 		System.out.println("\n\tA \tB \tC \tD \tE \tF \tG \tH \tI \tJ");
         System.out.println();
-        
+
         for(int row=0 ; row < 10 ; row++ ){
             System.out.print((row+1)+"");
             for(int column=0 ; column < 10 ; column++ ){
@@ -31,24 +31,28 @@ public class Board {
             System.out.println();
         }
 	}
-	
+
 	public boolean freeSpace(Ship ship) {
-		if (ship.direction == 'V') {
-			for (int i = ship.row; i < ship.row+ship.length; i++) {
-				if (board[i][ship.column].status != 0) {
-					return false;
+		if (ship.inBounds() == false) {
+			return false;
+		} else {
+			if (ship.direction == 'V') {
+				for (int i = ship.row; i < (ship.row + ship.length); i++) {
+					if (board[i][ship.column].status != 0) {
+						return false;
+					}
 				}
-			}
 		} else if (ship.direction == 'H') {
-			for (int i = ship.column; i < ship.column+ship.length; i++) {
+			for (int i = ship.column; i < (ship.column+ship.length); i++) {
 				if (board[ship.row][i].status != 0) {
 					return false;
 				}
 			}
 		}
 		return true;
+		}
 	}
-	
+
 	public void addShip(Ship ship) {
 		if (ship.direction == 'H'){ // Horizontal
             for (int i = ship.column; i < ship.column+ship.length; i++){
@@ -60,7 +64,7 @@ public class Board {
             }
         }
     }
-	
+
 	public int checkGuess(int rowGuess, int columnGuess) {
 		if (board[rowGuess][columnGuess].status == 1) {
 			markHit(rowGuess, columnGuess);
@@ -71,16 +75,16 @@ public class Board {
 		} else {
 		markMiss(rowGuess, columnGuess);
 		}
-		
+
 		return 0;
 	}
-  
+
 	public void markHit(int rowGuess, int columnGuess) {
     	board[rowGuess][columnGuess].status = 2;
     }
-    
+
     public void markMiss(int rowGuess, int columnGuess) {
     	board[rowGuess][columnGuess].status = 3;
     }
-	
+
 }
