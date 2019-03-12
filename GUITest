@@ -1,0 +1,98 @@
+
+// Based on : https://www.youtube.com/watch?v=QjuytZhQYo8
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javafx.animation.FadeTransition;
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.scene.image.*;
+
+
+public class GUITest extends Application {
+
+  private static final int WIDTH = 10;
+  private static final int HEIGHT = 10;
+
+  private Parent createContent() {
+    Pane root = new Pane();
+    root.setPrefSize(600, 600);
+
+    List<Tile> tiles = new ArrayList<>();
+    for (int i = 0; i < 100; i++){
+      Site s = new Site();
+      tiles.add(new Tile(s.siteMark()));
+    }
+
+    for (int i = 0; i < tiles.size(); i++) {
+      Tile tile = tiles.get(i);
+      tile.setTranslateX(50 * (i % HEIGHT));
+      tile.setTranslateY(50 * (i / HEIGHT));
+      root.getChildren().add(tile);
+    }
+    return root;
+  }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setScene(new Scene(createContent()));
+        primaryStage.show();
+    }
+
+
+    private class Tile extends StackPane {
+      // change string to image
+
+      private Text text = new Text();
+      // private Image text = new Image();
+      // Site site = new Site();
+
+      public Tile(String value){
+        Rectangle border = new Rectangle(50, 50);
+        border.setFill(Color.MIDNIGHTBLUE);
+        border.setStroke(Color.SILVER);
+
+        text.setText(value);
+        text.setFill(Color.WHITESMOKE);
+
+        setAlignment(Pos.CENTER);
+        getChildren().addAll(border, text);
+
+        setOnMouseClicked(event -> open());
+
+        close();
+      }
+
+
+    public void open(){
+      FadeTransition ft = new FadeTransition(Duration.seconds(0.3), text);
+      ft.setToValue(1);
+      ft.play();
+    }
+
+    public void close(){
+      //image.setOpacity(0);
+      FadeTransition ft = new FadeTransition(Duration.seconds(0.3), text);
+      ft.setToValue(0);
+      // set the value of the opacity to zero so we cant see it
+      ft.play();
+      }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+  }
