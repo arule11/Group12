@@ -1,4 +1,4 @@
-package BattleshipA;
+
 
 public class Player {
 	public int num_ships = 3;
