@@ -27,8 +27,9 @@ JDK
 
 ## References
 
-Battleship game used for reference (by  Yuval Marcus): https://github.com/ymarcus93/Java-Battleship?fbclid=IwAR2Bkk9JSBfDBB2jlLA-jv-1deUzVDVkgWXgwTG-3cQ1xV9oqE98hFXmqhA
+Game <https://github.com/ymarcus93/Java-Battleship?fbclid=IwAR2Bkk9JSBfDBB2jlLA-jv-1deUzVDVkgWXgwTG-3cQ1xV9oqE98hFXmqhA>
 
-Background star pic: https://clipart.info/gray-star-png-picture-background-transparent-3761
-Background galaxy pic: https://www.vectorstock.com/royalty-free-vector/space-background-night-sky-and-stars-black-and-vector-10884328
+GUI < private dropbox:  CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal >
+
+
 
