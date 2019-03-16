@@ -8,7 +8,9 @@ Two player game played using two 10x10 game boards. Initially players will place
 
 ## Code Location 
 
-The full version can be found in the master branch containing files Player, Ship, and Board, Game and Site. 
+The full console version can be found in the master branch containing files Player, Ship, and Board, Game and Site. 
+
+The GUI version can be found in the GUI2 folder within the main branch
 
 ## Installation and Running 
 
