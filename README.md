@@ -10,14 +10,20 @@ Two player game played using two 10x10 game boards. Initially players will place
 
 The full console version can be found in the master branch containing files Player, Ship, and Board, Game and Site. 
 
-The GUI version can be found in the GUI2 folder within the main branch
+The GUI version can be found in the gui2 folder within the main branch
 
 ## Installation and Running 
-
+Console:
 1. Clone Player, Ship, and Board, Game and Site java files to a new desktop folder.
 2. Change directory to desktop folder.
 3. Use javac *.java to compile all classes.
 4. Use java Game to play Battleship.
+
+GUI:
+1. Clone the gui2 folder to a new desktop folder.
+2. Change directory to desktop folder.
+3. Use javac *.java to compile all classes.
+4. Use java GUI to play Battleship.
 
 ## Requirements
 
