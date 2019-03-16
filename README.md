@@ -30,10 +30,12 @@ JDK
 Game < https://github.com/ymarcus93/Java-Battleship?fbclid=IwAR2Bkk9JSBfDBB2jlLA-jv-1deUzVDVkgWXgwTG-3cQ1xV9oqE98hFXmqhA >
 
 GUI < private dropbox:  CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal >
+
 GameInitiation < private dropbox:  CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal >
 
 Other:
-Stackoverflow 
+
+stackoverflow < https://stackoverflow.com >
 
 
 
