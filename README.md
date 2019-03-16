@@ -29,7 +29,7 @@ JDK
 
 ## References
 
-Game < https://github.com/ymarcus93/Java-Battleship?fbclid=IwAR2Bkk9JSBfDBB2jlLA-jv-1deUzVDVkgWXgwTG-3cQ1xV9oqE98hFXmqhA >
+Game, Player, Board, Site, Ship < https://github.com/ymarcus93/Java-Battleship?fbclid=IwAR2Bkk9JSBfDBB2jlLA-jv-1deUzVDVkgWXgwTG-3cQ1xV9oqE98hFXmqhA >
 
 GUI < private dropbox:  CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal >
 
@@ -39,5 +39,10 @@ Other:
 
 stackoverflow < https://stackoverflow.com >
 
+CPSC219 class notes by Nathaly Verwaal
+
+Battleship game used for reference (by AlmasB) < https://github.com/AlmasB/Battleship >
+
+Oracle javafx info < https://docs.oracle.com/javase/8/javase-clienttechnologies.htm >
 
 
