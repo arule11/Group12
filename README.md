@@ -23,7 +23,7 @@ JDK
 
 ## Class Diagram
 
-<img width="670" alt="classdiagram" src="https://user-images.githubusercontent.com/47372331/53618619-526e8f80-3ba9-11e9-8675-acee50ba1d67.png">
+<img width="664" alt="Screen Shot 2019-03-15 at 6 04 49 PM" src="https://user-images.githubusercontent.com/47372331/54467766-ec5b3e00-474c-11e9-8cc0-74d290a72455.png">
 
 ## References
 
