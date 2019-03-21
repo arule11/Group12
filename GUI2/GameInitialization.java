@@ -1,5 +1,4 @@
 
-
 import java.util.Random;
 
 import javafx.event.ActionEvent;
@@ -12,21 +11,36 @@ public class GameInitialization {
 	public Player player1 = new Player();
 //	public AIPlayer ai = new AIPlayer();
 	public char playerToken = '+';
-
+	public Ship currentShip = player1.playerShips[player1.num_ships-1];
+	
+	public class HandleHoriClick implements EventHandler<ActionEvent> {
+		public void handle(ActionEvent event){
+			currentShip.direction = 'H';
+			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to horizontal");
+			}
+	}
+	
+	public class HandleVertClick implements EventHandler<ActionEvent> {
+		public void handle(ActionEvent event){
+			currentShip.direction = 'V';
+			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to vertical");	
+		}
+	}
 	
 	public class HandleCellClick implements EventHandler<ActionEvent> {
 		private int row;
 		private int column;
+		
 		public HandleCellClick(int aRow, int aColumn) {
 			row = aRow;
 			column = aColumn;
 		}
+		
 		public void handle(ActionEvent event){
-			// place token
-			if (player1.num_ships > 0) {
+			/*if (player1.num_ships > 0) {
 				int numShips = player1.playerShips.length;
-				Ship ship = player1.playerShips[numShips-1];
-				placeShip(ship, row, column);
+				Ship ship = player1.playerShips[numShips-1];*/
+				placeShip(currentShip, row, column);
 			} 
 			
 			
@@ -39,30 +53,34 @@ public class GameInitialization {
 				aiTurn();
 			}
 */		}		
-	}
 	
-//	public class 
-		
 	
-	public void placeShip(Ship ship, int row, int column) {		
-		gui.setMessage("Place your ships.");
-		if (row > 10) {
-			gui.setMessage("You can't put a ship on \nyour enemy's board.");
-		}
+	public void placeShip(Ship ship, int row, int column) {	
 		ship.row = row;
 		ship.column = column;
-		if (player1.playerBoard.freeSpace(ship)){			
+		gui.setMessage("Place your ships.");
+		
+		if (ship.row > 10) {
+			gui.setMessage("You can't put a ship on \nyour enemy's board.");
+		} else if (player1.playerBoard.freeSpace(ship)){	
 				player1.playerBoard.addShip(ship);
-				player1.setupShip();
-				for (int i = column; i < column+ship.shipLength; i++) {
-					gui.placeToken(row, i);
+				if (ship.direction == 'H') {
+					for (int i = ship.row; i < (ship.row+ship.shipLength); i++) {
+						gui.placeToken(i, column);
+					}
+				} else if (ship.direction == 'V') {
+					for (int i = ship.column; i < (ship.column+ship.shipLength); i++) {
+						gui.placeToken(row, i);
+				}
 			}	
-		} else {
-			gui.setMessage("You can't put a ship there");
+			player1.setupShip();
+			currentShip = player1.playerShips[player1.num_ships-1];	
+			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to horizontal");
 		}	
-
 	//	board.placeToken(token, row, column);		
 	}
+	
+	
 
 /*	private void aiTurn() {
 		Move m = ai.getMove(board);
@@ -79,6 +97,8 @@ public class GameInitialization {
 			for (int col = 0; col < 10; col++) {
 				gui.setButtonHandler(new HandleCellClick(row,col),row,col);
 			}
+		gui.setVertHandler(new HandleVertClick());
+		gui.setHoriHandler(new HandleHoriClick());
 		}
 		
 /*		int randomChoice = new Random().nextInt(2);
