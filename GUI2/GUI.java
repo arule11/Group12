@@ -1,5 +1,4 @@
 
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ComboBox;
 import javafx.event.*;
 import javafx.geometry.Insets;
@@ -18,9 +18,12 @@ import javafx.scene.input.*;
 
 public class GUI extends Application {
 		private Button[][] buttons = new Button[20][10];
-		private Text messages = new Text("Welcome to Battleship");
+		private Text message = new Text("Welcome to Battleship");
+		private Text shipMessage = new Text("Your ship is 3 units long and set to horizontal");
 		private Label player = new Label("Your Board");
 		private Label enemy = new Label("Your Enemy's Board");
+		private Button hori = new Button("Horizontal");
+		private Button vert = new Button("Vertical");
 		
 		
 		public void start(Stage primaryStage) {
@@ -28,7 +31,7 @@ public class GUI extends Application {
 			GridPane playerBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
-					Button b = new Button(" ");
+					Button b = new Button("  ");
 					buttons[row][column] = b;
 					playerBoard.add(buttons[row][column], row, column);				
 				}
@@ -36,21 +39,28 @@ public class GUI extends Application {
 			GridPane oppBoard = new GridPane();
 			for (int row = 10; row < 20; row++) {
 				for (int column = 0; column < 10; column++){
-					Button b = new Button(" ");
+					Button b = new Button("  ");
 					buttons[row][column] = b;
 					oppBoard.add(buttons[row][column], row, column);				
 				}
 			}
 			
+			
+			HBox direction = new HBox(25, hori, vert);
+			VBox messages = new VBox(5, message, shipMessage);
+
+		/*	
 			ToggleGroup dir = new ToggleGroup();
 			RadioButton hori = new RadioButton("Horizontal");
 			hori.setUserData('H');
 			RadioButton vert = new RadioButton("Vertical");
-			hori.setUserData('V');
+			vert.setUserData('V');
 			hori.setToggleGroup(dir);
 			vert.setToggleGroup(dir);
 			hori.setSelected(true);
-			HBox direction = new HBox(hori, vert);
+			HBox direction = new HBox(25, hori, vert);
+		*/	
+		
 		/*	
 			ObservableList<String> options = 
 				    FXCollections.observableArrayList(
@@ -71,10 +81,9 @@ public class GUI extends Application {
 			allBoards.add(player, 0, 1);
 			allBoards.add(enemy, 0, 3);
 			allBoards.add(messages, 2, 0);
-//			allBoards.add(comboBox, 2, 2);
 			allBoards.add(direction, 2, 2);
 
-			Scene scene = new Scene(allBoards, 575, 700);
+			Scene scene = new Scene(allBoards, 700, 700);
 
 			primaryStage.setTitle("Battleship");
 			primaryStage.setScene(scene);
@@ -90,8 +99,13 @@ public class GUI extends Application {
 		b.setText("" + '+');
 		b.setDisable(true);
 	}
-	public void setMessage(String message) {
-		messages.setText(message);
+	
+	public void setMessage(String newMessage) {
+		message.setText(newMessage);
+	}
+	
+	public void setShipMessage(String newMessage) {
+		shipMessage.setText(newMessage);
 	}
 	
 	public void disable() {
@@ -104,4 +118,14 @@ public class GUI extends Application {
 	public void setButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
 		buttons[row][col].setOnAction(handler);		
 	}
+	
+	public void setHoriHandler(EventHandler<ActionEvent> handler){
+		hori.setOnAction(handler);		
+	}
+	
+	public void setVertHandler(EventHandler<ActionEvent> handler){
+		vert.setOnAction(handler);		
+	}
+	
+	
 }
