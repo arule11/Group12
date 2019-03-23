@@ -1,4 +1,4 @@
-package BattleshipA;
+
 
 public class Site {
 
