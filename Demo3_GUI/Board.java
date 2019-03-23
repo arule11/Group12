@@ -1,5 +1,4 @@
 
-
 public class Board {
 
 	// Board is a ten by ten array of sites, each with a status of 0
@@ -65,6 +64,7 @@ public class Board {
         }
 		
     }
+	
 
 
 }

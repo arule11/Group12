@@ -1,5 +1,4 @@
 
-
 public class Site {
 
 	public static final String noShip = "-" ;

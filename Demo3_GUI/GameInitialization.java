@@ -1,5 +1,4 @@
 
-
 import java.util.Random;
 
 import javafx.event.ActionEvent;
@@ -57,40 +56,40 @@ public class GameInitialization {
 	
 	
 	public void placeShip(Ship ship, int row, int column) {	
-		ship.row = column;
-		ship.column = row;
+		ship.row = row;
+		ship.column = column;
 		gui.setMessage("Place your ships.");
 		
-		if (ship.row > 10) {
-			gui.setMessage("You can't put a ship on \nyour enemy's board.");
-		} else if (player1.playerBoard.freeSpace(ship)){	
+		if (player1.num_ships != 0) {
+			if (player1.playerBoard.freeSpace(ship)){	
 				player1.playerBoard.addShip(ship);
 				
-				if (ship.direction == 'H') {
+				if (ship.direction == 'V') {
 					for (int i = ship.row; i < (ship.row+ship.shipLength); i++) {
 						gui.placeToken(i, column);
+						
 					}
-				} else if (ship.direction == 'V') {
+				} else if (ship.direction == 'H') {
 					for (int i = ship.column; i < (ship.column+ship.shipLength); i++) {
 						gui.placeToken(row, i);
 					}
 				}	
 				
 			player1.setupShip();
-			currentShip = player1.playerShips[player1.num_ships-1];	
-			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long. Set your direction.");
+				if (player1.num_ships != 0) {
+					currentShip = player1.playerShips[player1.num_ships-1];	
+					gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long. Set your direction.");
+				} else {
+					gui.setMessage("Ships ready. Prepare for battle.");
+					gui.setShipMessage(" ");
+				}
 			}
-		
-		if (player1.num_ships < 1) {
-			gui.setMessage("Ships ready. Prepare for battle.");
-			gui.setShipMessage(" ");
 		}
+	}
 		
 		
 	//	board.placeToken(token, row, column);		
-	}
-	
-	
+	 
 
 /*	private void aiTurn() {
 		Move m = ai.getMove(board);
@@ -103,13 +102,20 @@ public class GameInitialization {
 */	
 	public GameInitialization(GUI gui){
 		this.gui = gui;
-		for (int row = 0; row < 20; row++){
+		for (int row = 0; row < 10; row++){
 			for (int col = 0; col < 10; col++) {
-				gui.setButtonHandler(new HandleCellClick(row,col),row,col);
+				gui.setPlayerButtonHandler(new HandleCellClick(row,col),row,col);
 			}
+		}
+		for (int row = 0; row < 10; row++){
+			for (int col = 0; col < 10; col++) {
+				gui.setOppButtonHandler(new HandleCellClick(row,col),row,col);
+			}
+		}
+	
 		gui.setVertHandler(new HandleVertClick());
 		gui.setHoriHandler(new HandleHoriClick());
-		}
+	}
 		
 /*		int randomChoice = new Random().nextInt(2);
 		if (randomChoice == 0){
@@ -122,7 +128,7 @@ public class GameInitialization {
 			ai.setToken('o');
 			gui.setMessage("Your turn, you're token is 'x'");
 		}
-*/	}
+*/	
 
 		
 }

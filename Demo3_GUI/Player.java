@@ -23,7 +23,8 @@ public class Player {
 	}
 	
 	public void setupShip(){
-		num_ships--;
+		if (num_ships != 0) 
+			num_ships--;
 	}
 
 }

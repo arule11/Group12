@@ -19,8 +19,9 @@ import javafx.scene.input.*;
 
 public class GUI extends Application {
 	//update to 2 boards
-		private Button[][] buttons = new Button[20][10];
-		private Button[][] button1 = new Button[1][2];
+		private Button[][] buttonsPlayer = new Button[10][10];
+		private Button[][] buttonsOpp = new Button[10][10];
+	//	private Button[][] button1 = new Button[1][2];
 		private Text message = new Text("Welcome to Battleship");
 		private Player dummy = new Player();
 		private Text shipMessage = new Text("Your ship is " + dummy.shipLength + " units long. Set your direction.");
@@ -28,20 +29,24 @@ public class GUI extends Application {
 		private Button vert = new Button("Vertical");
 			
 		public void start(Stage primaryStage) {
+
+			
 			GridPane playerBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("  ");
-					buttons[row][column] = b;
-					playerBoard.add(buttons[row][column], row, column);				
+					//These are reversed for the game to work for some reason???
+					buttonsPlayer[column][row] = b;
+					playerBoard.add(buttonsPlayer[column][row], row, column);
 				}
 			}
+			
 			GridPane oppBoard = new GridPane();
-			for (int row = 10; row < 20; row++) {
+			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("  ");
-					buttons[row][column] = b;
-					oppBoard.add(buttons[row][column], row, column);				
+					buttonsOpp[row][column] = b;
+					oppBoard.add(buttonsOpp[row][column], row, column);				
 				}
 			}
 			
@@ -57,12 +62,14 @@ public class GUI extends Application {
 			allBoards.setHgap(20);
 			allBoards.setVgap(20);
 			allBoards.setPadding(new Insets(20,20,20,20));
-			allBoards.add(playerBoard, 1, 1);
-			allBoards.add(oppBoard, 1, 3);
 			allBoards.add(player, 0, 1);
+			allBoards.add(playerBoard, 1, 1);
 			allBoards.add(enemy, 0, 3);
-			allBoards.add(messages, 2, 0);
-			allBoards.add(direction, 2, 2);
+			allBoards.add(oppBoard, 1, 3);
+			
+			
+			allBoards.add(messages, 3, 0);
+			allBoards.add(direction, 3, 2);
 
 			Scene scene = new Scene(allBoards, 700, 700);
 
@@ -76,7 +83,7 @@ public class GUI extends Application {
 	}
 	
 	public void placeToken(int row, int col) {
-		Button b = buttons[row][col];
+		Button b = buttonsPlayer[row][col];
 		b.setText("" + '+');
 		b.setDisable(true);
 	}
@@ -90,19 +97,24 @@ public class GUI extends Application {
 	}
 	
 	public void disable() {
-		for (Button[] row : buttons) {
+		for (Button[] row : buttonsPlayer) {
 			for (Button b : row) {
 				b.setDisable(true);
 			}
 		}
 	}
-	public void setButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
-		buttons[row][col].setOnAction(handler);		
+	public void setPlayerButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
+		buttonsPlayer[row][col].setOnAction(handler);		
 	}
 	
-	public void setButtonHandler1(EventHandler<ActionEvent> handler, int row, int col){
+	public void setOppButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
+		buttonsOpp[row][col].setOnAction(handler);		
+	}
+	
+	/*public void setButtonHandler1(EventHandler<ActionEvent> handler, int row, int col){
 		button1[row][col].setOnAction(handler);		
 	}
+	*/
 	
 	public void setHoriHandler(EventHandler<ActionEvent> handler){
 		hori.setOnAction(handler);		
