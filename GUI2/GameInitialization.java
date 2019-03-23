@@ -1,3 +1,4 @@
+//Based on: private dropbox CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal >
 
 import java.util.Random;
 
@@ -11,39 +12,28 @@ public class GameInitialization {
 	public Player player1 = new Player();
 //	public AIPlayer ai = new AIPlayer();
 	public char playerToken = '+';
-	public Ship currentShip = player1.playerShips[player1.num_ships-1];
-	
-	public class HandleHoriClick implements EventHandler<ActionEvent> {
-		public void handle(ActionEvent event){
-			currentShip.direction = 'H';
-			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to horizontal");
-			}
-	}
-	
-	public class HandleVertClick implements EventHandler<ActionEvent> {
-		public void handle(ActionEvent event){
-			currentShip.direction = 'V';
-			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to vertical");	
-		}
-	}
-	
+
+
+
+	/**
+	* Takes the row and column of the spot clicked on the board and places a ship
+	*/
 	public class HandleCellClick implements EventHandler<ActionEvent> {
 		private int row;
 		private int column;
-		
 		public HandleCellClick(int aRow, int aColumn) {
 			row = aRow;
 			column = aColumn;
 		}
-		
 		public void handle(ActionEvent event){
-			/*if (player1.num_ships > 0) {
+			// place token
+			if (player1.num_ships > 0) {
 				int numShips = player1.playerShips.length;
-				Ship ship = player1.playerShips[numShips-1];*/
-				placeShip(currentShip, row, column);
-			} 
-			
-			
+				Ship ship = player1.playerShips[numShips-1];
+				placeShip(ship, row, column);
+			}
+
+
 			// check if the game is over
 /*			if (board.hasWon(playerToken)) {
 				gui.setMessage("You won!");
@@ -52,35 +42,37 @@ public class GameInitialization {
 				// let ai take a turn
 				aiTurn();
 			}
-*/		}		
-	
-	
-	public void placeShip(Ship ship, int row, int column) {	
+*/		}
+	}
+
+//	public class
+
+
+	/**
+	* Adds the specified ship to the players board
+	* @param ship: the ship the play is placing on the board
+	* @param row: the row corresponding to the selected spot on the board
+	* @param column : the column corresponding to the selected spot on the board
+	*/
+	public void placeShip(Ship ship, int row, int column) {
+		gui.setMessage("Place your ships.");
+		if (row > 10) {
+			gui.setMessage("You can't put a ship on \nyour enemy's board.");
+		}
 		ship.row = row;
 		ship.column = column;
-		gui.setMessage("Place your ships.");
-		
-		if (ship.row > 10) {
-			gui.setMessage("You can't put a ship on \nyour enemy's board.");
-		} else if (player1.playerBoard.freeSpace(ship)){	
+		if (player1.playerBoard.freeSpace(ship)){
 				player1.playerBoard.addShip(ship);
-				if (ship.direction == 'H') {
-					for (int i = ship.row; i < (ship.row+ship.shipLength); i++) {
-						gui.placeToken(i, column);
-					}
-				} else if (ship.direction == 'V') {
-					for (int i = ship.column; i < (ship.column+ship.shipLength); i++) {
-						gui.placeToken(row, i);
-				}
-			}	
-			player1.setupShip();
-			currentShip = player1.playerShips[player1.num_ships-1];	
-			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to horizontal");
-		}	
-	//	board.placeToken(token, row, column);		
+				player1.setupShip();
+				for (int i = column; i < column+ship.shipLength; i++) {
+					gui.placeToken(row, i);
+			}
+		} else {
+			gui.setMessage("You can't put a ship there");
+		}
+
+	//	board.placeToken(token, row, column);
 	}
-	
-	
 
 /*	private void aiTurn() {
 		Move m = ai.getMove(board);
@@ -88,19 +80,22 @@ public class GameInitialization {
 		if (board.hasWon(ai.getToken())) {
 			gui.setMessage("You lost!");
 			gui.disable();
-		}		
+		}
 	}
-*/	
+*/
+
+	/**
+	* sets up the game GUI and initializes the game
+	* @param gui : the GUI for the game
+	*/
 	public GameInitialization(GUI gui){
 		this.gui = gui;
 		for (int row = 0; row < 20; row++){
 			for (int col = 0; col < 10; col++) {
 				gui.setButtonHandler(new HandleCellClick(row,col),row,col);
 			}
-		gui.setVertHandler(new HandleVertClick());
-		gui.setHoriHandler(new HandleHoriClick());
 		}
-		
+
 /*		int randomChoice = new Random().nextInt(2);
 		if (randomChoice == 0){
 			playerToken = 'o';
@@ -114,5 +109,5 @@ public class GameInitialization {
 		}
 */	}
 
-		
+
 }
