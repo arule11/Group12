@@ -1,7 +1,7 @@
 
 /**
 * Class representing a Site. noShip, shipSite, hit, and miss are Strings.
-* The mark of the site on the board can be changed dependiing on its status.
+* The mark of the site on the board can be changed depending on its status.
 */
 
 public class Site {
