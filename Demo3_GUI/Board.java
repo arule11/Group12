@@ -65,6 +65,28 @@ public class Board {
 		
     }
 	
+	public int checkGuess(int rowGuess, int columnGuess) {
+		if (board[rowGuess][columnGuess].status == 1) {
+			markHit(rowGuess, columnGuess);
+			sunkShips ++;
+			return 1;
+		} else if (board[rowGuess][columnGuess].status == 2) {
+			return -1;
+		} else {
+		markMiss(rowGuess, columnGuess);
+		}
+
+		return 0;
+	}
+
+	public void markHit(int rowGuess, int columnGuess) {
+    	board[rowGuess][columnGuess].status = 2;
+    }
+
+    public void markMiss(int rowGuess, int columnGuess) {
+    	board[rowGuess][columnGuess].status = 3;
+    }
+
 
 
 }

@@ -5,7 +5,7 @@ public class Ship {
 	public int shipLength;
 	public int row;
 	public int column;
-	public char direction;
+	public char direction = 'H';
 
 	public Ship() {
 

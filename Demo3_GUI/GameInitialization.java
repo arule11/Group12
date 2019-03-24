@@ -9,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 public class GameInitialization {
 	public GUI gui;
 	public Player player1 = new Player();
-//	public AIPlayer ai = new AIPlayer();
+	public AIPlayer ai = new AIPlayer();
 	public char playerToken = '+';
 	public Ship currentShip = player1.playerShips[player1.num_ships-1];
 	
@@ -37,23 +37,23 @@ public class GameInitialization {
 		}
 		
 		public void handle(ActionEvent event){
-			/*if (player1.num_ships > 0) {
-				int numShips = player1.playerShips.length;
-				Ship ship = player1.playerShips[numShips-1];*/
 				placeShip(currentShip, row, column);
 			} 
-			
-			
-			// check if the game is over
-/*			if (board.hasWon(playerToken)) {
-				gui.setMessage("You won!");
-				gui.disable();
-			} else {
-				// let ai take a turn
-				aiTurn();
-			}
-*/		}		
+	}		
 	
+	public class HandleGuessClick implements EventHandler<ActionEvent> {
+		private int row;
+		private int column;
+		
+		public HandleGuessClick(int aRow, int aColumn) {
+			row = aRow;
+			column = aColumn;
+		}
+		
+		public void handle(ActionEvent event){
+				checkGuess(row, column);
+			} 
+	}	
 	
 	public void placeShip(Ship ship, int row, int column) {	
 		ship.row = row;
@@ -82,13 +82,43 @@ public class GameInitialization {
 				} else {
 					gui.setMessage("Ships ready. Prepare for battle.");
 					gui.setShipMessage(" ");
+					ai.setup(ai.aiBoard);
+					playGame();
 				}
 			}
 		}
 	}
+	
+	public void playGame() {
+		for (int row = 0; row < 10; row++){
+			for (int col = 0; col < 10; col++) {
+				gui.setOppButtonHandler(new HandleGuessClick(row,col),row,col);
+			}
+		}	
+	}
+	
+	public boolean allShipsIdentified() {
+		return false;
+	}
 		
+	public void checkGuess(int row, int column) {
+			
+			int check = ai.aiBoard.checkGuess(row,column);
+			System.out.println(check);
+			
+			if (check == 0) {
+				gui.setMessage("You missed.");
+				gui.guess('0', row, column);
+			} else if (check == 1){
+				gui.setMessage("You hit their battleship!");
+				gui.guess('X', row, column);
+			}
+			
+			
 		
-	//	board.placeToken(token, row, column);		
+			ai.aiBoard.showBoard();
+
+	}
 	 
 
 /*	private void aiTurn() {
@@ -107,11 +137,7 @@ public class GameInitialization {
 				gui.setPlayerButtonHandler(new HandleCellClick(row,col),row,col);
 			}
 		}
-		for (int row = 0; row < 10; row++){
-			for (int col = 0; col < 10; col++) {
-				gui.setOppButtonHandler(new HandleCellClick(row,col),row,col);
-			}
-		}
+		
 	
 		gui.setVertHandler(new HandleVertClick());
 		gui.setHoriHandler(new HandleHoriClick());

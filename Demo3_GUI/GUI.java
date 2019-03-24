@@ -21,10 +21,8 @@ public class GUI extends Application {
 	//update to 2 boards
 		private Button[][] buttonsPlayer = new Button[10][10];
 		private Button[][] buttonsOpp = new Button[10][10];
-	//	private Button[][] button1 = new Button[1][2];
-		private Text message = new Text("Welcome to Battleship");
-		private Player dummy = new Player();
-		private Text shipMessage = new Text("Your ship is " + dummy.shipLength + " units long. Set your direction.");
+		private Text message = new Text("Place your ships.");
+		private Text shipMessage = new Text("Your ship is 1 unit long. Set your direction.");
 		private Button hori = new Button("Horizontal");
 		private Button vert = new Button("Vertical");
 			
@@ -45,8 +43,8 @@ public class GUI extends Application {
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("  ");
-					buttonsOpp[row][column] = b;
-					oppBoard.add(buttonsOpp[row][column], row, column);				
+					buttonsOpp[column][row] = b;
+					oppBoard.add(buttonsOpp[column][row], row, column);				
 				}
 			}
 			
@@ -88,6 +86,12 @@ public class GUI extends Application {
 		b.setDisable(true);
 	}
 	
+	public void guess(char token, int row, int col) {
+		Button b = buttonsOpp[row][col];
+		b.setText("" + token);
+		b.setDisable(true);
+	}
+	
 	public void setMessage(String newMessage) {
 		message.setText(newMessage);
 	}
@@ -110,11 +114,6 @@ public class GUI extends Application {
 	public void setOppButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
 		buttonsOpp[row][col].setOnAction(handler);		
 	}
-	
-	/*public void setButtonHandler1(EventHandler<ActionEvent> handler, int row, int col){
-		button1[row][col].setOnAction(handler);		
-	}
-	*/
 	
 	public void setHoriHandler(EventHandler<ActionEvent> handler){
 		hori.setOnAction(handler);		
