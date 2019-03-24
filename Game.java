@@ -195,7 +195,7 @@ public class Game {
     }
 
 		/**
-		* Allows player to guess a spot on the board where they believe their oppenents
+		* Allows player to guess a spot on the board where they believe their opponents
 		* ship may be
 		* @param opponent : the guessing players opponent
 		* @param guessingPlayer : the Player who is guessing
@@ -222,7 +222,7 @@ public class Game {
 
 
 		/**
-		* Computer randomly selects spot on the board where their oppenents ships may be
+		* Computer randomly selects spot on the board where their opponents ships may be
 		* @param opponent : the computers opponent
 		* @param compPlayer : the computer Player
 		*/
