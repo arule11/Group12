@@ -73,7 +73,7 @@ public class Board {
 
 	/**
 	* Adds the specified ship to the players board
-	* @param ship : the ship the play is placing on the board
+	* @param ship : the ship the player is placing on the board
 	*/
 	public void addShip(Ship ship) {
 		if (ship.direction == 'H'){ // Horizontal
