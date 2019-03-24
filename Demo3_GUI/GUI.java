@@ -22,9 +22,11 @@ public class GUI extends Application {
 		private Button[][] buttonsPlayer = new Button[10][10];
 		private Button[][] buttonsOpp = new Button[10][10];
 		private Text message = new Text("Place your ships.");
-		private Text shipMessage = new Text("Your ship is 1 unit long. Set your direction.");
+		private Text shipMessage = new Text("Your ship is 2 units long. Set your direction.");
 		private Button hori = new Button("Horizontal");
 		private Button vert = new Button("Vertical");
+		private GridPane allBoards = new GridPane();
+		private HBox direction = new HBox(25, hori, vert);
 			
 		public void start(Stage primaryStage) {
 
@@ -49,23 +51,19 @@ public class GUI extends Application {
 			}
 			
 			Label player = new Label("Your Board");
-			Label enemy = new Label("Your Enemy's Board");
-			HBox direction = new HBox(25, hori, vert);
+			Label enemy = new Label("Your Enemy's Board");	
 			VBox messages = new VBox(5, message, shipMessage);
 
 		
 			new GameInitialization(this);
 			
-			GridPane allBoards = new GridPane();
 			allBoards.setHgap(20);
 			allBoards.setVgap(20);
 			allBoards.setPadding(new Insets(20,20,20,20));
 			allBoards.add(player, 0, 1);
 			allBoards.add(playerBoard, 1, 1);
 			allBoards.add(enemy, 0, 3);
-			allBoards.add(oppBoard, 1, 3);
-			
-			
+			allBoards.add(oppBoard, 1, 3);	
 			allBoards.add(messages, 3, 0);
 			allBoards.add(direction, 3, 2);
 
@@ -92,6 +90,12 @@ public class GUI extends Application {
 		b.setDisable(true);
 	}
 	
+	public void AIguess(char token, int row, int col) {
+		Button b = buttonsPlayer[row][col];
+		b.setText("" + token);
+		b.setDisable(true);
+	}
+	
 	public void setMessage(String newMessage) {
 		message.setText(newMessage);
 	}
@@ -100,13 +104,23 @@ public class GUI extends Application {
 		shipMessage.setText(newMessage);
 	}
 	
+	public void removeDirections() {
+	    allBoards.getChildren().remove(direction);
+	}
+	
 	public void disable() {
 		for (Button[] row : buttonsPlayer) {
 			for (Button b : row) {
 				b.setDisable(true);
 			}
+		} 
+		for (Button[] row : buttonsOpp){
+			for (Button b : row) {
+				b.setDisable(true);
+			}
 		}
 	}
+	
 	public void setPlayerButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
 		buttonsPlayer[row][col].setOnAction(handler);		
 	}

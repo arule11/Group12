@@ -12,6 +12,7 @@ public class GameInitialization {
 	public AIPlayer ai = new AIPlayer();
 	public char playerToken = '+';
 	public Ship currentShip = player1.playerShips[player1.num_ships-1];
+	public int pointsToWin = 14;
 	
 	public class HandleHoriClick implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event){
@@ -90,6 +91,7 @@ public class GameInitialization {
 	}
 	
 	public void playGame() {
+		gui.removeDirections();
 		for (int row = 0; row < 10; row++){
 			for (int col = 0; col < 10; col++) {
 				gui.setOppButtonHandler(new HandleGuessClick(row,col),row,col);
@@ -97,39 +99,42 @@ public class GameInitialization {
 		}	
 	}
 	
-	public boolean allShipsIdentified() {
+	public boolean allShipsSunk() {
+		if (player1.points == pointsToWin) {
+			gui.setMessage("You win!");
+			return true;
+		} else if (ai.points == pointsToWin) {
+			gui.setMessage("You lose!");
+			return true;
+		}
 		return false;
 	}
 		
-	public void checkGuess(int row, int column) {
-			
+	public void checkGuess(int row, int column) {	
 			int check = ai.aiBoard.checkGuess(row,column);
-			System.out.println(check);
 			
-			if (check == 0) {
-				gui.setMessage("You missed.");
-				gui.guess('0', row, column);
-			} else if (check == 1){
-				gui.setMessage("You hit their battleship!");
-				gui.guess('X', row, column);
-			}
-			
-			
-		
-			ai.aiBoard.showBoard();
-
+				if (check == 0) {
+					gui.setMessage("You missed.");
+					gui.guess('0', row, column);
+				} else if (check == 1){
+					gui.setMessage("You hit their battleship!");
+					gui.guess('X', row, column);
+					player1.points++;
+				}
+				
+				if (allShipsSunk()) {
+					gui.disable();
+				}
+				
+				ai.guess(gui, player1.playerBoard);
+			//	ai.aiBoard.showBoard();
+				
+				if (allShipsSunk()) {
+					gui.disable();
+				}
 	}
 	 
 
-/*	private void aiTurn() {
-		Move m = ai.getMove(board);
-		placeToken(ai.getToken(), m.row, m.column);
-		if (board.hasWon(ai.getToken())) {
-			gui.setMessage("You lost!");
-			gui.disable();
-		}		
-	}
-*/	
 	public GameInitialization(GUI gui){
 		this.gui = gui;
 		for (int row = 0; row < 10; row++){
@@ -137,24 +142,8 @@ public class GameInitialization {
 				gui.setPlayerButtonHandler(new HandleCellClick(row,col),row,col);
 			}
 		}
-		
-	
 		gui.setVertHandler(new HandleVertClick());
 		gui.setHoriHandler(new HandleHoriClick());
 	}
-		
-/*		int randomChoice = new Random().nextInt(2);
-		if (randomChoice == 0){
-			playerToken = 'o';
-			ai.setToken('x');
-			aiTurn();
-			gui.setMessage("Your turn, you're token is 'o'");
-		} else {
-			playerToken = 'x';
-			ai.setToken('o');
-			gui.setMessage("Your turn, you're token is 'x'");
-		}
-*/	
-
 		
 }

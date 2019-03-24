@@ -6,7 +6,7 @@
 import java.util.*;
 
 public class Game {
-	public static int points = 12;
+	public static int points = 14;
 	
 	public static Scanner reader = new Scanner(System.in);
  

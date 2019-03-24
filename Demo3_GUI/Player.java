@@ -1,9 +1,11 @@
 
 
 public class Player {
-	public int num_ships = 5;
+	public int num_ships = 4;
 	public int shipLength = 5;
-
+	
+	public int points = 0;
+	
 	public Ship[] playerShips;
 	public Board playerBoard = new Board();
 	public Board oppBoard = new Board();
