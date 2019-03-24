@@ -1,9 +1,9 @@
 
-// Thie version of Battleship was written with reference to Java-Battleship
+// This version of Battleship was written with reference to Java-Battleship
 // by Yuval Marcus (github: ymarcus93)
 
 /**
-* Class representing a Game. points is of type integer. The game can be played,
+* Class representing a Game. Points is of type integer. The game can be played,
 * allowing players to place their ships on the board, and guess where their
 * opponents ships are in order to win the game.
 */
