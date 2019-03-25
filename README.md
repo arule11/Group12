@@ -10,7 +10,7 @@ Two player game played using two 10x10 game boards. Initially players will place
 
 The full console version can be found in the master branch containing files Player, Ship, and Board, Game and Site. 
 
-The GUI version can be found in the gui2 folder within the main branch
+The GUI version can be found in the Demo3_GUI folder within the main branch
 
 ## Installation and Running 
 Console:
@@ -20,7 +20,7 @@ Console:
 4. Use java Game to play Battleship.
 
 GUI:
-1. Clone the gui2 folder to a new desktop folder.
+1. Clone the Demo3_GUI folder to a new desktop folder.
 2. Change directory to desktop folder.
 3. Use javac *.java to compile all classes.
 4. Use java GUI to play Battleship.
@@ -31,7 +31,7 @@ JDK
 
 ## Class Diagram
 
-<img width="664" alt="Screen Shot 2019-03-15 at 6 04 49 PM" src="https://user-images.githubusercontent.com/47372331/54467766-ec5b3e00-474c-11e9-8cc0-74d290a72455.png">
+<img width="705" alt="class diagram D3" src="https://user-images.githubusercontent.com/47372331/54896036-d3a70280-4e87-11e9-8e21-73be63f3303b.png">
 
 ## References
 
