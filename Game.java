@@ -303,22 +303,22 @@ public class Game {
     		else {
     			Random random = new Random();
     			int rowGuess = random.nextInt(10);
-    		    int columnGuess = random.nextInt(10);
-    		    int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
-    		    while (checkGuess == -1) {
-    		      rowGuess = random.nextInt(10);
-    		      columnGuess = random.nextInt(10);
-    		      checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
-    		     }
+    		        int columnGuess = random.nextInt(10);
+    		        int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    		        while (checkGuess == -1) {
+    		          rowGuess = random.nextInt(10);
+    		          columnGuess = random.nextInt(10);
+    		          checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    		        }
     		        
-    		    if (checkGuess == 1) {
-    		        System.out.println("Your ship was hit!");
-    		        previouslyHit = true;
-    		        previousRow = rowGuess;
-    		        previousColumn = columnGuess;
+    		        if (checkGuess == 1) {
+    		          System.out.println("Your ship was hit!");
+    		          previouslyHit = true;
+    		          previousRow = rowGuess;
+    		          previousColumn = columnGuess;
     		        	
-    		     } else if (checkGuess == 0){
-    		       System.out.println("Your opponent missed!");
+    		     }  else if (checkGuess == 0){
+    		          System.out.println("Your opponent missed!");
     		     }
     		}
        
