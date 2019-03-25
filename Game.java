@@ -14,6 +14,8 @@ public class Game {
 	public static Scanner reader = new Scanner(System.in);
 	public static int guessCount = 0;
 	public static boolean previouslyHit = false;
+	public static int previousRow = 0;
+	public static int previousColumn = 0;
 	
     public static void main(String[] args) {
     	// Welcome message, difficulty selection and validation.
@@ -276,69 +278,48 @@ public class Game {
     	opponent.playerBoard.showBoard();
     }
     
+    // Smart Guess: Shoots at the area surrounding a previous hit (if the spaces are open).
     public static void smartGuess(Player opponent, Player compPlayer) {
-    	int previousRow = 0;
-    	int previousColumn = 0;
-    	List<Site> potentialSiteList = new ArrayList<Site>();
-    	
     	if (previouslyHit == true) {
-    		//Check if area around last shot has any areas that could potentially be hit.
-    		//if ([previousRow + 1][previousColumn].status == 0) {
-    			//potentialSiteList.add([[previousRow + 1][previousColumn].Site);
-    		//}
-    		//if ([previousRow][previousColumn - 1].status == 0) {
-    			//potentialSiteList.add([[previousRow][previousColumn - 1].Site);
-    		//}
-    		//if ([previousRow][previousColumn + 1].status == 0) {
-    			//potentialSiteList.add([[previousRow][previousColumn + 1].Site);
-    		//}
-    		//if ([previousRow - 1][previousColumn].status == 0) {
-    			//potentialSiteList.add([[previousRow - 1][previousColumn].Site);
-    		//}
-    		//if (potentialSiteList.isEmpty() == false) {
-    			// Choose a random site from this list and shoot at this site. TO BE COMPLETED
-    			
-    		}
-    		
-    		else {
-    			Random random = new Random();
-    			int rowGuess = random.nextInt(10);
-    		        int columnGuess = random.nextInt(10);
-    		        int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
-    		        while (checkGuess == -1) {
-    		          rowGuess = random.nextInt(10);
-    		          columnGuess = random.nextInt(10);
-    		          checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
-    		        }
+    		List<Site> smartGuessList = opponent.playerBoard.checkSurroundingArea();
+    		Random random = new Random();
+    		Site smartGuessSite = random.choice(smartGuessList);
+    		int checkGuess = opponent.playerBoard.checkGuess(smartGuessSite.getSiteRow(), smartGuessSite.getSiteColumn());
+    	}
+    	else {
+    		Random random = new Random();
+    		int rowGuess = random.nextInt(10);
+    	    int columnGuess = random.nextInt(10);
+    	    int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+   		while (checkGuess == -1) {
+   			rowGuess = random.nextInt(10);
+   		    columnGuess = random.nextInt(10);
+   		    checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);    		     
+   		}
     		        
-    		        if (checkGuess == 1) {
-    		          System.out.println("Your ship was hit!");
-    		          previouslyHit = true;
-    		          previousRow = rowGuess;
-    		          previousColumn = columnGuess;
+   			if (checkGuess == 1) {
+    		     System.out.println("Your ship was hit!");
+    		      previouslyHit = true;
+    		      previousRow = rowGuess;
+    		      previousColumn = columnGuess;
     		        	
-    		     }  else if (checkGuess == 0){
-    		          System.out.println("Your opponent missed!");
-    		     }
+    		  } else if (checkGuess == 0){
+    		    System.out.println("Your opponent missed!");
+    		    }
     		}
        
         System.out.println("Here's your board:");
         opponent.playerBoard.showBoard();
-    	 }
+    	}
     
+    // Cheat Guess: guarantees a hit for the computer player. 
     public static void cheatGuess(Player opponent, Player compPlayer) {
-    	List<Site> potentialCheatList = new ArrayList<Site>();
-    	
-    	// Check each site on the board for a site that 
-    	for(int row = 0 ; row < 10 ; row++ ){
-			 for(int column = 0 ; column < 10 ; column++ ){
-				 //if (site.status == 2) {
-					 //potentialCheatList.add(Site[row][col]);
-				 }
-				 }
-    	//Randomly select a site from this list and shoot at it. TO BE COMPLETED
-    	
+    	List<Site> cheatList = opponent.playerBoard.checkBoardForShip();
+    	Random random = new Random();
+    	Site cheatSite = random.choice(cheatList);
+    	int checkGuess = opponent.playerBoard.checkGuess(cheatSite.getSiteRow(), cheatSite.getSiteColumn());
+    	System.out.println("Your ship was hit!");
+    	System.out.println("Here's your board:");
+        opponent.playerBoard.showBoard();
     }
-
 }
-
