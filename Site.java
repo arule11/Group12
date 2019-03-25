@@ -12,14 +12,43 @@ public class Site {
 	public static final String miss = "0";
 
 	public int status;
+	public int siteRow;
+	public int siteColumn;
 
 	/**
 	* Default constructor: Initializes the site status to zero
 	*/
 	public Site() {
 		this.status = 0;
+		
 	}
-
+	
+	public Site(int row, int column) {
+		this.siteRow = row;
+		this.siteColumn = column;
+		getStatus();
+	}
+	
+	public int getSiteRow() {
+		return this.siteRow;
+	}
+	
+	public void setSiteRow(int row) {
+		this.siteRow = row;
+	}
+	
+	public int getSiteColumn() {
+		return this.siteColumn;
+	}
+	
+	public void setSiteColumn(int column) {
+		this.siteColumn = column;
+	}
+	
+	public int getStatus() {
+		return this.status;
+	}
+	
 	/**
 	* Prints the mark that corresponds to the status of the site
 	*/
