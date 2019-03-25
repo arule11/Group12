@@ -1,9 +1,8 @@
-
 // This version of Battleship was written with reference to Java-Battleship
 // by Yuval Marcus (github: ymarcus93)
 
 /**
-* Class representing a Game. Points is of type integer. The game can be played,
+* Class representing a Game. points is of type integer. The game can be played,
 * allowing players to place their ships on the board, and guess where their
 * opponents ships are in order to win the game.
 */
@@ -13,20 +12,50 @@ import java.util.*;
 public class Game {
 	public static int points = 12;
 	public static Scanner reader = new Scanner(System.in);
-
+	public static int guessCount = 0;
+	public static boolean previouslyHit = false;
+	
     public static void main(String[] args) {
-    // Players set up ships.
-        System.out.println("Welcome to Battleship");
+    	// Welcome message, difficulty selection and validation.
+        System.out.println("Welcome to Battleship. Choose a difficulty level: Type 1 for easy, 2 for medium, 3 for hard.");
+        int difficulty = reader.nextInt();
+        while (difficulty < 1 || difficulty > 3) {
+        	System.out.println("Incorrect input, please try again. Choose a difficulty level: Type 1 for easy, 2 for medium, 3 for hard.");
+        	difficulty = reader.nextInt();
+        }
+        if (difficulty == 1) {
+    		System.out.println("Difficulty set to easy.");
+    	}
+    	if (difficulty == 2) {
+    		System.out.println("Difficulty set to medium.");
+    	}
+    	if (difficulty == 3) {
+    		System.out.println("Difficulty set to hard.");
+        }
+        	
+        // Players set up their ships.
         Player player1 = new Player();
         player1.playerBoard.showBoard();
         Player compPlayer = new Player();
         setupPlayer(player1);
         setupComp(compPlayer);
 
-    		// Players guess where ships are.
+    	// Players guess where ships are.
         while (player1.playerBoard.sunkShips != points && compPlayer.playerBoard.sunkShips != points) {
         	playerGuess(compPlayer, player1);
-        	compGuess(player1, compPlayer);
+        	if (difficulty == 1) {
+        		compGuess(player1, compPlayer);
+        	}
+        	if (difficulty == 2) {
+        		smartGuess(player1, compPlayer);
+        	}
+        	if (difficulty == 3) {
+        		guessCount++;
+        		if (guessCount % 4 == 0) {
+        			cheatGuess(player1, compPlayer);
+        		}
+        		else {smartGuess(player1, compPlayer);}
+        	}
         }
    			// Game ends when all of one players ships are sunk.
         if (player1.playerBoard.sunkShips == points) {
@@ -236,13 +265,80 @@ public class Game {
 	    	columnGuess = random.nextInt(10);
 	    	checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
     		}
+    	
     	if (checkGuess == 1) {
     		System.out.println("Your ship was hit!");
+    		
     	} else if (checkGuess == 0){
     		System.out.println("Your opponent missed!");
     	}
     	System.out.println("Here's your board:");
     	opponent.playerBoard.showBoard();
     }
+    
+    public static void smartGuess(Player opponent, Player compPlayer) {
+    	int previousRow = 0;
+    	int previousColumn = 0;
+    	List<Site> potentialSiteList = new ArrayList<Site>();
+    	
+    	if (previouslyHit == true) {
+    		//Check if area around last shot has any areas that could potentially be hit.
+    		//if ([previousRow + 1][previousColumn].status == 0) {
+    			//potentialSiteList.add([[previousRow + 1][previousColumn].Site);
+    		//}
+    		//if ([previousRow][previousColumn - 1].status == 0) {
+    			//potentialSiteList.add([[previousRow][previousColumn - 1].Site);
+    		//}
+    		//if ([previousRow][previousColumn + 1].status == 0) {
+    			//potentialSiteList.add([[previousRow][previousColumn + 1].Site);
+    		//}
+    		//if ([previousRow - 1][previousColumn].status == 0) {
+    			//potentialSiteList.add([[previousRow - 1][previousColumn].Site);
+    		//}
+    		//if (potentialSiteList.isEmpty() == false) {
+    			// Choose a random site from this list and shoot at this site. TO BE COMPLETED
+    			
+    		}
+    		
+    		else {
+    			Random random = new Random();
+    			int rowGuess = random.nextInt(10);
+    		    int columnGuess = random.nextInt(10);
+    		    int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    		    while (checkGuess == -1) {
+    		      rowGuess = random.nextInt(10);
+    		      columnGuess = random.nextInt(10);
+    		      checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
+    		     }
+    		        
+    		    if (checkGuess == 1) {
+    		        System.out.println("Your ship was hit!");
+    		        previouslyHit = true;
+    		        previousRow = rowGuess;
+    		        previousColumn = columnGuess;
+    		        	
+    		     } else if (checkGuess == 0){
+    		       System.out.println("Your opponent missed!");
+    		     }
+    		}
+       
+        System.out.println("Here's your board:");
+        opponent.playerBoard.showBoard();
+    	 }
+    
+    public static void cheatGuess(Player opponent, Player compPlayer) {
+    	List<Site> potentialCheatList = new ArrayList<Site>();
+    	
+    	// Check each site on the board for a site that 
+    	for(int row = 0 ; row < 10 ; row++ ){
+			 for(int column = 0 ; column < 10 ; column++ ){
+				 //if (site.status == 2) {
+					 //potentialCheatList.add(Site[row][col]);
+				 }
+				 }
+    	//Randomly select a site from this list and shoot at it. TO BE COMPLETED
+    	
+    }
 
 }
+
