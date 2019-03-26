@@ -1,15 +1,19 @@
 
+// This version of Battleship was written with reference to Java-Battleship
+// by Yuval Marcus (github: ymarcus93)
 
-
-// This version of Battleship was written with reference to Java-Battleship by  Yuval Marcus (github: ymarcus93)
+/**
+* Class representing a Game. points is of type integer. The console game can be played,
+* allowing players to place their ships on the board, and guess where their
+* opponents ships are in order to win the game.
+*/
 
 import java.util.*;
 
 public class Game {
 	public static int points = 14;
-	
 	public static Scanner reader = new Scanner(System.in);
- 
+
     public static void main(String[] args) {
     // Players set up ships.
         System.out.println("Welcome to Battleship");
@@ -18,13 +22,13 @@ public class Game {
         Player compPlayer = new Player();
         setupPlayer(player1);
         setupComp(compPlayer);
-        
+
     // Players guess where ships are.
         while (player1.playerBoard.sunkShips != points && compPlayer.playerBoard.sunkShips != points) {
         	playerGuess(compPlayer, player1);
-        	compGuess(player1, compPlayer);	
-        }    
-        
+        	compGuess(player1, compPlayer);
+        }
+
    // Game ends when all of one players ships are sunk.
         if (player1.playerBoard.sunkShips == points) {
         	System.out.println("You lost!");
@@ -32,10 +36,14 @@ public class Game {
         	System.out.println("You won!");
         }
     }
-  
+
+		/**
+		* Player selects spots on the their board where they wish to place their
+		* ships
+		* @param player : the Player
+		*/
     public static void setupPlayer(Player player) {
-    	
-       	// Setup players ships
+      // Setup players ships
     	for (Ship ship : player.playerShips) {
             System.out.println("\nShip is " + ship.shipLength + " spaces long.");
             ship.row = chooseRow();
@@ -59,31 +67,34 @@ public class Game {
                 ship.column = chooseColumn();
                 ship.direction = chooseDirection();
             }
-            
+
             player.playerBoard.addShip(ship);
             player.playerBoard.showBoard();
     	}
     }
-    
+
     // Test computer with hard set ships
     public static void setupTest(Player testPlayer) {
     	System.out.println("Computer is placing their ships...");
     	int increase = 0;
     	for (Ship compShip : testPlayer.playerShips) {
     		compShip.row = increase;
-    		compShip.column = increase;  
+    		compShip.column = increase;
     		compShip.direction = 'H';
     		increase += 2;
     		testPlayer.playerBoard.addShip(compShip);
        	}
     	testPlayer.playerBoard.showBoard();
     }
-    
-    // Random computer
+
+		/**
+		* Computer randomly selects spots on their board to place their ships
+		* @param compPlayer : the computer Player
+		*/
     public static void setupComp(Player compPlayer) {
     	// Setup computers ships
     	System.out.println("Computer is placing their ships...");
-    	Random random = new Random(); 
+    	Random random = new Random();
     	for (Ship compShip : compPlayer.playerShips) {
     		compShip.column = random.nextInt(10);
     		compShip.row = random.nextInt(10);
@@ -102,7 +113,7 @@ public class Game {
         			} else {
         				compShip.direction = 'V';
         			}
-    		}	
+    		}
     		while (compPlayer.playerBoard.freeSpace(compShip) == false) {
         		compShip.column = random.nextInt(10);
         		compShip.row = random.nextInt(10);
@@ -111,12 +122,16 @@ public class Game {
         				compShip.direction = 'H';
         			} else {
         				compShip.direction = 'V';
-        			}		
+        			}
     		}
     		compPlayer.playerBoard.addShip(compShip);
     	}
     }
 
+		/**
+		* Prompts the player to choose the row where they wish to place their ship
+		* @return Returns an int
+		*/
     public static int chooseRow() {
     	System.out.print("Choose a row (1-10): ");
     	boolean check = true;
@@ -137,7 +152,11 @@ public class Game {
         }
     	return userInputRow;
     }
-    
+
+		/**
+		* Prompts the player to choose the column where they wish to place their ship
+		* @return Returns an int
+		*/
     public static int chooseColumn() {
         System.out.print("Choose a column (A-J): ");
         boolean check = true;
@@ -145,7 +164,7 @@ public class Game {
         while(check) {
         	try {
         		userInputCol = reader.next().charAt(0);
-        		
+
         		while ((int)userInputCol > 106 ^ (int)userInputCol < 97) {
         	        System.out.print("Not a valid letter. Choose a column: (A-J): ");
         	        userInputCol = reader.next().charAt(0);
@@ -159,7 +178,11 @@ public class Game {
         userInputCol = Character.toUpperCase(userInputCol);
         return (int)(userInputCol - 65);
     }
-    
+
+		/**
+		* Prompts the player to choose the direction of the ship they are placing
+		* @return Returns a char
+		*/
     public static char chooseDirection() {
 
     	System.out.print("Choose a direction: Horizontal or Vertical (H or V): ");
@@ -171,9 +194,14 @@ public class Game {
         	userInputDir = Character.toUpperCase(userInputDir);
         	}
         return userInputDir;
-    	
     }
 
+		/**
+		* Allows player to guess a spot on the board where they believe their oppenents
+		* ship may be
+		* @param opponent : the guessing players opponent
+		* @param guessingPlayer : the Player who is guessing
+		*/
     public static void playerGuess(Player opponent, Player guessingPlayer) {
     	System.out.println("Here's your opponent's board:");
     	guessingPlayer.oppBoard.showBoard();
@@ -192,11 +220,16 @@ public class Game {
     	}
     	System.out.println("Here's your opponent's board:");
     	guessingPlayer.oppBoard.showBoard();
-    	
+
     }
-    
+
+		/**
+		* Computer randomly selects spot on the board where their oppenents ships may be
+		* @param opponent : the computers opponent
+		* @param compPlayer : the computer Player
+		*/
     public static void compGuess(Player opponent, Player compPlayer) {
-    	Random random = new Random(); 
+    	Random random = new Random();
     	int rowGuess = random.nextInt(10);
     	int columnGuess = random.nextInt(10);
     	int checkGuess = opponent.playerBoard.checkGuess(rowGuess, columnGuess);
@@ -208,12 +241,10 @@ public class Game {
     	if (checkGuess == 1) {
     		System.out.println("Your ship was hit!");
     	} else if (checkGuess == 0){
-    		System.out.println("Your opponent missed!");	
+    		System.out.println("Your opponent missed!");
     	}
     	System.out.println("Here's your board:");
     	opponent.playerBoard.showBoard();
     }
-    
+
 }
-
-
