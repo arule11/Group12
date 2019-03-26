@@ -1,6 +1,12 @@
-# Battleship Project - Group 12 
+# Battleship by Group 12 
 
-Java console version of the game Battleship.
+Java version of the game Battleship.
+
+## Contributors
+Kaylee Novakovski 
+Athena McNeil-Roberts
+Liam Langill
+Matt Black
 
 ## Game Description
 
@@ -9,10 +15,10 @@ Two player game played using two 10x10 game boards. Initially players will place
 ## Code Location 
 
 The full console version can be found in the master branch containing files Player, Ship, and Board, Game and Site. 
-
 The GUI version can be found in the Demo3_GUI folder within the main branch
 
 ## Installation and Running 
+
 Console:
 1. Clone Player, Ship, and Board, Game and Site java files to a new desktop folder.
 2. Change directory to desktop folder.
@@ -28,6 +34,7 @@ GUI:
 ## Requirements
 
 JDK
+javafx
 
 ## Class Diagram
 
@@ -37,15 +44,16 @@ JDK
 
 Game, Player, Board, Site, Ship < https://github.com/ymarcus93/Java-Battleship?fbclid=IwAR2Bkk9JSBfDBB2jlLA-jv-1deUzVDVkgWXgwTG-3cQ1xV9oqE98hFXmqhA >
 
-GUI < private dropbox:  CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal >
+GUI < private dropbox:  Lecture16_OODesign by Nathaly Verwaal >
+< UC Teaching Assistant: Kanishqk Singh >
 
-GameInitiation < private dropbox:  CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal >
+GameInitiation < private dropbox:  Examples> Lecture16_OODesign by Nathaly Verwaal >
 
 Other:
 
 stackoverflow < https://stackoverflow.com >
 
-CPSC219 class notes by Nathaly Verwaal
+class notes by Nathaly Verwaal
 
 Battleship game used for reference (by AlmasB) < https://github.com/AlmasB/Battleship >
 
