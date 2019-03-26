@@ -47,12 +47,11 @@ javafx
 
 Game, Player, Board, Site, Ship < https://github.com/ymarcus93/Java-Battleship?fbclid=IwAR2Bkk9JSBfDBB2jlLA-jv-1deUzVDVkgWXgwTG-3cQ1xV9oqE98hFXmqhA >
 
-GUI < private dropbox:  Lecture16_OODesign by Nathaly Verwaal >
-< UC Teaching Assistant: Kanishqk Singh >
+GUI, GameInitialization, AIPlayer < private dropbox:  Examples> Lecture16_OODesign by Nathaly Verwaal >
 
-GameInitiation < private dropbox:  Examples> Lecture16_OODesign by Nathaly Verwaal >
+#### Other:
 
-Other:
+UC Teaching Assistant: Kanishqk Singh
 
 stackoverflow < https://stackoverflow.com >
 
