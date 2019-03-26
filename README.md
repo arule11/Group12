@@ -3,9 +3,12 @@
 Java version of the game Battleship.
 
 ## Contributors
-Kaylee Novakovski 
+Kaylee Novakovski
+
 Athena McNeil-Roberts
+
 Liam Langill
+
 Matt Black
 
 ## Game Description
