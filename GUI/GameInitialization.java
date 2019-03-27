@@ -4,14 +4,18 @@
 * Class Initializing the game. gui is of type GUI, player1 is a Player, ai is an
 * AIPlayer, playerToken is a char, crrentShip is of type Ship and pointsToWin
 * is an int.
+* Javadoc by Athena McNeil-Roberts
+* Code by Kaylee Novakovski
 */
 
-import java.util.Random;
+package GUI;
+
+import Console.Ship;
+import Console.Player;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
+
 
 public class GameInitialization {
 	public GUI gui;
@@ -20,7 +24,7 @@ public class GameInitialization {
 	public char playerToken = '+';
 	public Ship currentShip = player1.playerShips[player1.num_ships-1];
 	public int pointsToWin = 14;
-
+	
 	/*
 	* Class representing an event handler. Allows player to changle the direction
 	* of their ship, when placing it on the board
@@ -35,7 +39,7 @@ public class GameInitialization {
 			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to horizontal");
 			}
 	}
-
+	
 	/*
 	* Class representing an event handler. Allows player to changle the direction
 	* of their ship, when placing it on the board
@@ -47,10 +51,10 @@ public class GameInitialization {
 		*/
 		public void handle(ActionEvent event){
 			currentShip.direction = 'V';
-			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to vertical");
+			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to vertical");	
 		}
 	}
-
+	
 	/*
 	* Class representing an event handler. row and column are integers. Allows
 	* player to place their ship on the board.
@@ -68,11 +72,12 @@ public class GameInitialization {
 		* places ship where player clicks
 		* @param event : the Action Event
 		*/
+
 		public void handle(ActionEvent event){
 				placeShip(currentShip, row, column);
-			}
-	}
-
+			} 
+	}		
+	
 	/*
 	* Class representing an event handler. row and column are integers. checks
 	* if the opponent has a ship where the player clicked.
@@ -91,38 +96,38 @@ public class GameInitialization {
 		*/
 		public void handle(ActionEvent event){
 				checkGuess(row, column);
-			}
-	}
-
+			} 
+	}	
+	
 	/**
 	* Adds the specified ship to the players board
 	* @param ship: the ship the play is placing on the board
 	* @param row: the row corresponding to the selected spot on the board
 	* @param column : the column corresponding to the selected spot on the board
 	*/
-	public void placeShip(Ship ship, int row, int column) {
+	public void placeShip(Ship ship, int row, int column) {	
 		ship.row = row;
 		ship.column = column;
 		gui.setMessage("Place your ships.");
-
+		
 		if (player1.num_ships != 0) {
-			if (player1.playerBoard.freeSpace(ship)){
+			if (player1.playerBoard.freeSpace(ship)){	
 				player1.playerBoard.addShip(ship);
-
+				
 				if (ship.direction == 'V') {
 					for (int i = ship.row; i < (ship.row+ship.shipLength); i++) {
 						gui.placeToken(i, column);
-
+						
 					}
 				} else if (ship.direction == 'H') {
 					for (int i = ship.column; i < (ship.column+ship.shipLength); i++) {
 						gui.placeToken(row, i);
 					}
-				}
-
+				}	
+				
 			player1.setupShip();
 				if (player1.num_ships != 0) {
-					currentShip = player1.playerShips[player1.num_ships-1];
+					currentShip = player1.playerShips[player1.num_ships-1];	
 					gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long. Set your direction.");
 				} else {
 					gui.setMessage("Ships ready. Prepare for battle.");
@@ -133,7 +138,7 @@ public class GameInitialization {
 			}
 		}
 	}
-
+	
 	/**
 	* initializes the opponents board for guessing
 	*/
@@ -143,9 +148,9 @@ public class GameInitialization {
 			for (int col = 0; col < 10; col++) {
 				gui.setOppButtonHandler(new HandleGuessClick(row,col),row,col);
 			}
-		}
+		}	
 	}
-
+	
 	/**
 	* Checks if all the players ships have been sunk
 	* @return Returns a boolean
@@ -160,16 +165,16 @@ public class GameInitialization {
 		}
 		return false;
 	}
-
+		
 	/**
 	* Checks if the spot 'guessed' by the player is occupied by one of their
 	* opponents ships
 	* @param rowGuess : the row corresponding to the selected spot on the board
 	* @param columnGuess : the column corresponding to the selected spot on the board
 	*/
-	public void checkGuess(int row, int column) {
+	public void checkGuess(int row, int column) {	
 			int check = ai.aiBoard.checkGuess(row,column);
-
+			
 				if (check == 0) {
 					gui.setMessage("You missed.");
 					gui.guess('0', row, column);
@@ -178,19 +183,18 @@ public class GameInitialization {
 					gui.guess('X', row, column);
 					player1.points++;
 				}
-
+				
 				if (allShipsSunk()) {
 					gui.disable();
 				}
-
+				
 				ai.guess(gui, player1.playerBoard);
-			//	ai.aiBoard.showBoard();
-
+				
 				if (allShipsSunk()) {
 					gui.disable();
 				}
 	}
-
+	 
 	/**
 	* sets up the game GUI and initializes the game
 	* @param gui : the GUI for the game
@@ -205,5 +209,5 @@ public class GameInitialization {
 		gui.setVertHandler(new HandleVertClick());
 		gui.setHoriHandler(new HandleHoriClick());
 	}
-
+		
 }
