@@ -22,18 +22,18 @@ The GUI version can be found in the Demo3_GUI folder within the main branch
 
 ## Installation and Running 
 
-Console:
-1. Clone Player, Ship, and Board, Game and Site java files to a new desktop folder.
-2. Change directory to desktop folder.
-3. Use javac *.java to compile all classes.
-4. Use java Game to play Battleship.
-
-GUI:
-1. Clone the Demo3_GUI folder to a new desktop folder.
-2. Change directory to desktop folder.
-3. Use javac *.java to compile all classes.
-4. Use java GUI to play Battleship.
-
+1. Clone entire directory to a new desktop folder.
+2. In the console, direct to the desktop folder using cd <filepath>
+3. Install JavaFX using either of the following commands:
+  
+Linux/Mac:  javac -cp .:jrxrt.jar *.java
+Windows:  javac -cp .;jrxrt.jar *.java
+  
+4. Use command --> javac Console/*.java
+5. Use command --> javac -classpath . GUI/*.java
+6. To play Console version, use command --> java Console.Game
+7. To play GUI version, use command --> java GUI.GUI
+  
 ## Requirements
 
 JDK
