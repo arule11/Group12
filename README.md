@@ -18,7 +18,7 @@ Two player game played using two 10x10 game boards. Initially players will place
 ## Installation and Running 
 
 1. Clone entire directory to a new desktop folder.
-2. In the console, direct to the desktop folder using cd <filepath>
+2. In the console, direct to the desktop folder using cd < filepath >
 3. Use command --> javac Console/*.java
 4. Use command --> javac -classpath . GUI/*.java
 5. To play Console version, use command --> java Console.Game
