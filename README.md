@@ -24,15 +24,10 @@ The GUI version can be found in the Demo3_GUI folder within the main branch
 
 1. Clone entire directory to a new desktop folder.
 2. In the console, direct to the desktop folder using cd <filepath>
-3. Install JavaFX using either of the following commands:
-  
-Linux/Mac:  javac -cp .:jrxrt.jar *.java
-Windows:  javac -cp .;jrxrt.jar *.java
-  
-4. Use command --> javac Console/*.java
-5. Use command --> javac -classpath . GUI/*.java
-6. To play Console version, use command --> java Console.Game
-7. To play GUI version, use command --> java GUI.GUI
+3. Use command --> javac Console/*.java
+4. Use command --> javac -classpath . GUI/*.java
+5. To play Console version, use command --> java Console.Game
+6. To play GUI version, use command --> java GUI.GUI
   
 ## Requirements
 
