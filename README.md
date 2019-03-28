@@ -27,6 +27,7 @@ Two player game played using two 10x10 game boards. Initially players will place
 ## Requirements
 
 JDK
+
 javafx
 
 ## Class Diagram
