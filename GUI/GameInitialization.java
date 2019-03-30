@@ -18,12 +18,11 @@ import javafx.event.EventHandler;
 
 
 public class GameInitialization {
-	public GUI gui;
-	public Player player1 = new Player();
-	public AIPlayer ai = new AIPlayer();
-	public char playerToken = '+';
-	public Ship currentShip = player1.playerShips[player1.num_ships-1];
-	public int pointsToWin = 14;
+	private GUI gui;
+	private Player player1 = new Player();
+	private AIPlayer ai = new AIPlayer();
+	private Ship currentShip = player1.getPlayerShips()[player1.getNum_ships()-1];
+	private static final int POINTS_TO_WIN = 14;
 	
 	/*
 	* Class representing an event handler. Allows player to changle the direction
@@ -35,8 +34,8 @@ public class GameInitialization {
 		* @param event : the Action Event
 		*/
 		public void handle(ActionEvent event){
-			currentShip.direction = 'H';
-			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to horizontal");
+			currentShip.setDirection('H');
+			gui.setShipMessage("Your ship is " + currentShip.getShipLength() + " units long and set to horizontal");
 			}
 	}
 	
@@ -50,8 +49,8 @@ public class GameInitialization {
 		* @param event : the Action Event
 		*/
 		public void handle(ActionEvent event){
-			currentShip.direction = 'V';
-			gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long and set to vertical");	
+			currentShip.setDirection('V');
+			gui.setShipMessage("Your ship is " + currentShip.getShipLength() + " units long and set to vertical");	
 		}
 	}
 	
@@ -106,33 +105,33 @@ public class GameInitialization {
 	* @param column : the column corresponding to the selected spot on the board
 	*/
 	public void placeShip(Ship ship, int row, int column) {	
-		ship.row = row;
-		ship.column = column;
+		ship.setRow(row);
+		ship.setColumn(column);
 		gui.setMessage("Place your ships.");
 		
-		if (player1.num_ships != 0) {
-			if (player1.playerBoard.freeSpace(ship)){	
-				player1.playerBoard.addShip(ship);
+		if (player1.getNum_ships() != 0) {
+			if (player1.getPlayerBoard().freeSpace(ship)){	
+				player1.getPlayerBoard().addShip(ship);
 				
-				if (ship.direction == 'V') {
-					for (int i = ship.row; i < (ship.row+ship.shipLength); i++) {
+				if (ship.getDirection() == 'V') {
+					for (int i = ship.getRow(); i < (ship.getRow()+ship.getShipLength()); i++) {
 						gui.placeToken(i, column);
 						
 					}
-				} else if (ship.direction == 'H') {
-					for (int i = ship.column; i < (ship.column+ship.shipLength); i++) {
+				} else if (ship.getDirection() == 'H') {
+					for (int i = ship.getColumn(); i < (ship.getColumn()+ship.getShipLength()); i++) {
 						gui.placeToken(row, i);
 					}
 				}	
 				
 			player1.setupShip();
-				if (player1.num_ships != 0) {
-					currentShip = player1.playerShips[player1.num_ships-1];	
-					gui.setShipMessage("Your ship is " + currentShip.shipLength + " units long. Set your direction.");
+				if (player1.getNum_ships() != 0) {
+					currentShip = player1.getPlayerShips()[player1.getNum_ships()-1];	
+					gui.setShipMessage("Your ship is " + currentShip.getShipLength() + " units long. Set your direction.");
 				} else {
 					gui.setMessage("Ships ready. Prepare for battle.");
 					gui.setShipMessage(" ");
-					ai.setup(ai.playerBoard);
+					ai.setup(ai.getPlayerBoard());
 					playGame();
 				}
 			}
@@ -156,10 +155,10 @@ public class GameInitialization {
 	* @return Returns a boolean
 	*/
 	public boolean allShipsSunk() {
-		if (player1.points == pointsToWin) {
+		if (player1.getPoints() == POINTS_TO_WIN) {
 			gui.setMessage("You win!");
 			return true;
-		} else if (ai.points == pointsToWin) {
+		} else if (ai.getPoints() == POINTS_TO_WIN) {
 			gui.setMessage("You lose!");
 			return true;
 		}
@@ -173,7 +172,7 @@ public class GameInitialization {
 	* @param columnGuess : the column corresponding to the selected spot on the board
 	*/
 	public void checkGuess(int row, int column) {	
-			int check = ai.playerBoard.checkGuess(row,column);
+			int check = ai.getPlayerBoard().checkGuess(row,column);
 			
 				if (check == 0) {
 					gui.setMessage("You missed.");
@@ -181,14 +180,14 @@ public class GameInitialization {
 				} else if (check == 1){
 					gui.setMessage("You hit their battleship!");
 					gui.guess('X', row, column);
-					player1.points++;
+					player1.addPoint();
 				}
 				
 				if (allShipsSunk()) {
 					gui.disable();
 				}
 				
-				ai.guess(gui, player1.playerBoard);
+				ai.guess(gui, player1.getPlayerBoard());
 				
 				if (allShipsSunk()) {
 					gui.disable();
@@ -209,5 +208,5 @@ public class GameInitialization {
 		gui.setVertHandler(new HandleVertClick());
 		gui.setHoriHandler(new HandleHoriClick());
 	}
-		
+	
 }

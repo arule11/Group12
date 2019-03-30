@@ -26,33 +26,33 @@ public class AIPlayer extends Player {
 
 	public void setup(Board aiBoard) {
 		Random random = new Random(); 
-		for (Ship compShip : playerShips) {
-			compShip.column = random.nextInt(10);
-			compShip.row = random.nextInt(10);
+		for (Ship compShip : getPlayerShips()) {
+			compShip.setColumn(random.nextInt(10));
+			compShip.setRow(random.nextInt(10));
 			int randomDirection = random.nextInt(2);
 			if (randomDirection == 0) {
-				compShip.direction = 'H';
+				compShip.setDirection('H');
 			} else {
-				compShip.direction = 'V';
+				compShip.setDirection('V');
 			}
 			while(compShip.inBounds() == false) {
-				compShip.column = random.nextInt(10);
-				compShip.row = random.nextInt(10);
+				compShip.setColumn(random.nextInt(10));
+				compShip.setRow(random.nextInt(10));
 				randomDirection = random.nextInt(2);
 	    		if (randomDirection == 0) {
-	    			compShip.direction = 'H';
+	    			compShip.setDirection('H');
 	    		} else {
-	    			compShip.direction = 'V';
+	    			compShip.setDirection('V');
 	   			}
 			}	
 			while (aiBoard.freeSpace(compShip) == false) {
-				compShip.column = random.nextInt(10);
-				compShip.row = random.nextInt(10);
+				compShip.setColumn(random.nextInt(10));
+				compShip.setRow(random.nextInt(10));
 				randomDirection = random.nextInt(2);
 					if (randomDirection == 0) {
-						compShip.direction = 'H';
+						compShip.setDirection('H');
 					} else {
-						compShip.direction = 'V';
+						compShip.setDirection('V');
 					}		
 			}
 			aiBoard.addShip(compShip);
@@ -78,7 +78,7 @@ public class AIPlayer extends Player {
     		}
     	if (aiGuess == 1) {
     		gui.setShipMessage("Your battleship was hit!");
-    		points++;
+    		addPoint();
     		gui.AIguess('X', rowGuess, columnGuess);
     	} else {
     		gui.setShipMessage("Your opponent missed!");	

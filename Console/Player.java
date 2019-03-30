@@ -13,25 +13,25 @@ package Console;
 
 
 public class Player {
-	public int num_ships = 4;
-	public int shipLength = 5;
+	private int num_ships = 4;
+	private int shipLength = 5;
 	
-	public int points = 0;
+	private int points = 0;
 	
-	public Ship[] playerShips;
-	public Board playerBoard = new Board();
-	public Board oppBoard = new Board();
+	private Ship[] playerShips;
+	private Board playerBoard = new Board();
+	private Board oppBoard = new Board();
 
 	/**
 	* Default constructor:  gives a list of three ships for each player
 	*/
 
 	public Player() {
-		playerShips = new Ship[num_ships];	
+		playerShips = (new Ship[num_ships]);	
 		
-		for (int i = 0; i < num_ships; i++){
+		for (int i = 0; i < getNum_ships(); i++){
             Ship addPlayerShip = new Ship(shipLength);
-            playerShips[i] = addPlayerShip;
+            getPlayerShips()[i] = addPlayerShip;
             shipLength--;
         	}		
 	}
@@ -43,5 +43,30 @@ public class Player {
 		if (num_ships != 0) 
 			num_ships--;
 	}
+
+	public int getPoints() {
+		return this.points;
+	}
+
+	public void addPoint() {
+		points++;
+	}
+
+	public int getNum_ships() {
+		return num_ships;
+	}
+
+	public Board getPlayerBoard() {
+		return playerBoard;
+	}
+
+	public Ship[] getPlayerShips() {
+		return playerShips;
+	}
+
+	public Board getOppBoard() {
+		return oppBoard;
+	}
+
 
 }

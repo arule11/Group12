@@ -13,33 +13,41 @@ package Console;
 
 public class Site {
 
-	public static final String noShip = "-" ;
-	public static final String shipSite = "+";
-	public static final String hit = "X";
-	public static final String miss = "0";
+	private static final String noShip = "-" ;
+	private static final String shipSite = "+";
+	private static final String hit = "X";
+	private static final String miss = "0";
 		
-	public int status;
+	private int status;
 	
 	/**
 	* Default constructor: Initializes the site status to zero
 	*/
 	public Site() {
-		this.status = 0;
+		this.setStatus(0);
 	}
 	
 	/**
 	* Prints the mark that corresponds to the status of the site
 	*/
 	public void siteMark() {
-		if (status == 0) {
+		if (getStatus() == 0) {
 			System.out.print(noShip);
-		} else if (status == 1) {
+		} else if (getStatus() == 1) {
 			System.out.print(shipSite);
-		} else if (status == 2) {
+		} else if (getStatus() == 2) {
 			System.out.print(hit);
 		} else {
 			System.out.print(miss);
 		}
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

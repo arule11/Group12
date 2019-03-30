@@ -12,10 +12,10 @@ package Console;
 
 public class Ship {
 
-	public int shipLength;
-	public int row;
-	public int column;
-	public char direction;
+	private int shipLength;
+	private int row;
+	private int column;
+	private char direction;
 
 	public Ship() {
 	}
@@ -25,7 +25,7 @@ public class Ship {
 	* @param length : the length of the ship
 	*/
 	public Ship(int length) {
-		this.shipLength = length;
+		this.setShipLength(length);
 	}
 	
 	/**
@@ -34,12 +34,12 @@ public class Ship {
 	* @return Returns a boolean
 	*/
 	public boolean inBounds(){
-		if (direction == 'V'){
-			if (shipLength <= (10 - row)){
+		if (getDirection() == 'V'){
+			if (getShipLength() <= (10 - getRow())){
 				return true;
 			}
-		} else if (direction == 'H'){
-				if (shipLength <= (10 - column) ){
+		} else if (getDirection() == 'H'){
+				if (getShipLength() <= (10 - getColumn()) ){
 					return true;
 				}
 			}
@@ -51,7 +51,40 @@ public class Ship {
 	* @return Returns a string combination of length, row, column and direction
 	*/
 	public String toString(){
-	     return Integer.toString(shipLength) + " " +  (char)(row + 65) + " " + Integer.toString(column) + " " + direction;
+	     return Integer.toString(getShipLength()) + " " +  (char)(getRow() + 65) + " " + Integer.toString(getColumn()) + " " + getDirection();
 	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public char getDirection() {
+		return direction;
+	}
+
+	public void setDirection(char direction) {
+		this.direction = direction;
+	}
+
+	public int getShipLength() {
+		return shipLength;
+	}
+
+	public void setShipLength(int shipLength) {
+		this.shipLength = shipLength;
+	}
+	
 
 }

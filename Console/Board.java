@@ -15,8 +15,8 @@ package Console;
 public class Board {
 
 	// Board is a ten by ten array of sites, each with a status of 0
-	public Site[][] board = new Site[10][10];
-	public int sunkShips = 0;
+	private Site[][] board = new Site[10][10];
+	private int sunkShips = 0;
 
 
 	/**
@@ -28,7 +28,7 @@ public class Board {
 			 for(int column = 0 ; column < 10 ; column++ ){
 				 Site site = new Site();
 	            	board[row][column] = site;
-	            	site.status = 0;
+	            	site.setStatus(0);
 			 }
 		 }
 	}
@@ -62,15 +62,15 @@ public class Board {
 		if (!ship.inBounds()) {
 			return false;
 		} else {
-			if (ship.direction == 'V') {
-				for (int i = ship.row; i < (ship.row + ship.shipLength); i++) {
-					if (board[i][ship.column].status != 0) {
+			if (ship.getDirection() == 'V') {
+				for (int i = ship.getRow(); i < (ship.getRow() + ship.getShipLength()); i++) {
+					if (board[i][ship.getColumn()].getStatus() != 0) {
 						return false;
 					}
 				}
-		} else if (ship.direction == 'H') {
-			for (int i = ship.column; i < (ship.column+ship.shipLength); i++) {
-				if (board[ship.row][i].status != 0) {
+		} else if (ship.getDirection() == 'H') {
+			for (int i = ship.getColumn(); i < (ship.getColumn()+ship.getShipLength()); i++) {
+				if (board[ship.getRow()][i].getStatus() != 0) {
 					return false;
 				}
 			}
@@ -85,13 +85,13 @@ public class Board {
 	*/ 
 	
 	public void addShip(Ship ship) {
-		if (ship.direction == 'H'){ // Horizontal
-            for (int i = ship.column; i < ship.column+ship.shipLength; i++){
-            	board[ship.row][i].status = 1;
+		if (ship.getDirection() == 'H'){ // Horizontal
+            for (int i = ship.getColumn(); i < ship.getColumn()+ship.getShipLength(); i++){
+            	board[ship.getRow()][i].setStatus(1);
             }
         } else { // Vertical
-        	for (int i = ship.row; i < ship.row+ship.shipLength; i++){
-            	board[i][ship.column].status = 1;
+        	for (int i = ship.getRow(); i < ship.getRow()+ship.getShipLength(); i++){
+            	board[i][ship.getColumn()].setStatus(1);
             }
         }
 		
@@ -106,11 +106,11 @@ public class Board {
 	*/
 	
 	public int checkGuess(int rowGuess, int columnGuess) {
-		if (board[rowGuess][columnGuess].status == 1) {
+		if (board[rowGuess][columnGuess].getStatus() == 1) {
 			markHit(rowGuess, columnGuess);
 			sunkShips ++;
 			return 1;
-		} else if (board[rowGuess][columnGuess].status == 2) {
+		} else if (board[rowGuess][columnGuess].getStatus() == 2) {
 			return -1;
 		} else {
 		markMiss(rowGuess, columnGuess);
@@ -127,7 +127,7 @@ public class Board {
 	*/
 	
 	public void markHit(int rowGuess, int columnGuess) {
-    	board[rowGuess][columnGuess].status = 2;
+    	board[rowGuess][columnGuess].setStatus(2);
     }
 	
 	/**
@@ -138,9 +138,11 @@ public class Board {
 	*/
 	
     public void markMiss(int rowGuess, int columnGuess) {
-    	board[rowGuess][columnGuess].status = 3;
+    	board[rowGuess][columnGuess].setStatus(3);
     }
-
-
+    
+    public int getSunkShips() {
+    	return sunkShips;
+    }
 
 }
