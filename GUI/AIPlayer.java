@@ -13,32 +13,12 @@ package GUI;
 
 import Console.Ship;
 import Console.Board;
+import Console.Player;
 
 import java.util.Random;
 
-public class AIPlayer {
-	public int num_ships = 4;
-	public int shipLength = 5;
-	public int points = 0;
-	
-	public Ship[] aiShips;
-	public Board aiBoard = new Board();
-	
-	/**
-	* Default constructor:  gives a list of three ships to the AI player
-	*/
-	
-	public AIPlayer() {
-		
-		aiShips = new Ship[num_ships];	
-		
-		for (int i = 0; i < num_ships; i++){
-            Ship addPlayerShip = new Ship(shipLength);
-            aiShips[i] = addPlayerShip;
-            shipLength--;
-        	}		
-	}
-	
+public class AIPlayer extends Player {
+
 	/**
 	* Computer randomly selects spots on their board to place their ships
 	* @param aiBoard : the AI players board
@@ -46,7 +26,7 @@ public class AIPlayer {
 
 	public void setup(Board aiBoard) {
 		Random random = new Random(); 
-		for (Ship compShip : aiShips) {
+		for (Ship compShip : playerShips) {
 			compShip.column = random.nextInt(10);
 			compShip.row = random.nextInt(10);
 			int randomDirection = random.nextInt(2);

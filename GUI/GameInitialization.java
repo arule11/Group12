@@ -132,7 +132,7 @@ public class GameInitialization {
 				} else {
 					gui.setMessage("Ships ready. Prepare for battle.");
 					gui.setShipMessage(" ");
-					ai.setup(ai.aiBoard);
+					ai.setup(ai.playerBoard);
 					playGame();
 				}
 			}
@@ -173,7 +173,7 @@ public class GameInitialization {
 	* @param columnGuess : the column corresponding to the selected spot on the board
 	*/
 	public void checkGuess(int row, int column) {	
-			int check = ai.aiBoard.checkGuess(row,column);
+			int check = ai.playerBoard.checkGuess(row,column);
 			
 				if (check == 0) {
 					gui.setMessage("You missed.");
