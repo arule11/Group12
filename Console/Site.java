@@ -37,7 +37,7 @@ public class Site {
 			System.out.print(shipSite);
 		} else if (getStatus() == 2) {
 			System.out.print(hit);
-		} else {
+		} else if (getStatus() == 3){
 			System.out.print(miss);
 		}
 	}

@@ -23,6 +23,7 @@ public class GameInitialization {
 	private AIPlayer ai = new AIPlayer();
 	private Ship currentShip = player1.getPlayerShips()[player1.getNum_ships()-1];
 	private static final int POINTS_TO_WIN = 14;
+
 	
 	/*
 	* Class representing an event handler. Allows player to changle the direction
@@ -173,7 +174,7 @@ public class GameInitialization {
 	*/
 	public void checkGuess(int row, int column) {	
 			int check = ai.getPlayerBoard().checkGuess(row,column);
-			
+
 				if (check == 0) {
 					gui.setMessage("You missed.");
 					gui.guess('0', row, column);

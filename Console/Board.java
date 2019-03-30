@@ -110,7 +110,7 @@ public class Board {
 			markHit(rowGuess, columnGuess);
 			sunkShips ++;
 			return 1;
-		} else if (board[rowGuess][columnGuess].getStatus() == 2) {
+		} else if (board[rowGuess][columnGuess].getStatus() == 2 || board[rowGuess][columnGuess].getStatus() == 3) {
 			return -1;
 		} else {
 		markMiss(rowGuess, columnGuess);
@@ -144,5 +144,10 @@ public class Board {
     public int getSunkShips() {
     	return sunkShips;
     }
+
+	public Site[][] getBoard() {
+		
+		return this.board;
+	}
 
 }
