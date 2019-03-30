@@ -181,7 +181,6 @@ public class AIPlayer extends Player {
 
 	
 	public void makeRightGuess(GUI gui, Board board) {
-		System.out.println("Computer missed 4 times. Making right guess");
 		int rowGuess = 0;
 		int columnGuess = 0;
 		int aiGuess;
