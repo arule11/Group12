@@ -1,4 +1,4 @@
-// Thie version of Battleship was written with reference to Java-Battleship
+// This version of Battleship was written with reference to Java-Battleship
 // by Yuval Marcus (github: ymarcus93)
 
 /**
