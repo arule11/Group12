@@ -2,7 +2,7 @@
 
 /*
 * Class Initializing the game. gui is of type GUI, player1 is a Player, ai is an
-* AIPlayer, playerToken is a char, crrentShip is of type Ship and pointsToWin
+* AIPlayer, playerToken is a char, currentShip is of type Ship and pointsToWin
 * is an int.
 * Javadoc by Athena McNeil-Roberts
 * Code by Kaylee Novakovski
@@ -26,12 +26,12 @@ public class GameInitialization {
 
 	
 	/*
-	* Class representing an event handler. Allows player to changle the direction
+	* Class representing an event handler. Allows player to change the direction
 	* of their ship, when placing it on the board
 	*/
 	public class HandleHoriClick implements EventHandler<ActionEvent> {
 		/*
-		* changes the direction of the ship being placed to horizontal
+		* Changes the direction of the ship being placed to horizontal
 		* @param event : the Action Event
 		*/
 		public void handle(ActionEvent event){
@@ -41,12 +41,12 @@ public class GameInitialization {
 	}
 	
 	/*
-	* Class representing an event handler. Allows player to changle the direction
+	* Class representing an event handler. Allows player to change the direction
 	* of their ship, when placing it on the board
 	*/
 	public class HandleVertClick implements EventHandler<ActionEvent> {
 		/*
-		* changes the direction of the ship being placed to vertical
+		* Changes the direction of the ship being placed to vertical
 		* @param event : the Action Event
 		*/
 		public void handle(ActionEvent event){
@@ -79,7 +79,7 @@ public class GameInitialization {
 	}		
 	
 	/*
-	* Class representing an event handler. row and column are integers. checks
+	* Class representing an event handler. row and column are integers. Checks
 	* if the opponent has a ship where the player clicked.
 	*/
 	public class HandleGuessClick implements EventHandler<ActionEvent> {
@@ -100,8 +100,8 @@ public class GameInitialization {
 	}	
 	
 	/**
-	* Adds the specified ship to the players board
-	* @param ship: the ship the play is placing on the board
+	* Adds the specified ship to the player's board
+	* @param ship: the ship the player is placing on the board
 	* @param row: the row corresponding to the selected spot on the board
 	* @param column : the column corresponding to the selected spot on the board
 	*/
@@ -140,7 +140,7 @@ public class GameInitialization {
 	}
 	
 	/**
-	* initializes the opponents board for guessing
+	* Initializes the opponent's board for guessing
 	*/
 	public void playGame() {
 		gui.removeDirections();
@@ -152,7 +152,7 @@ public class GameInitialization {
 	}
 	
 	/**
-	* Checks if all the players ships have been sunk
+	* Checks if all of the player's ships have been sunk
 	* @return Returns a boolean
 	*/
 	public boolean allShipsSunk() {
@@ -168,7 +168,7 @@ public class GameInitialization {
 		
 	/**
 	* Checks if the spot 'guessed' by the player is occupied by one of their
-	* opponents ships
+	* opponent's ships
 	* @param rowGuess : the row corresponding to the selected spot on the board
 	* @param columnGuess : the column corresponding to the selected spot on the board
 	*/
@@ -196,7 +196,7 @@ public class GameInitialization {
 	}
 	 
 	/**
-	* sets up the game GUI and initializes the game
+	* Sets up the game GUI and initializes the game
 	* @param gui : the GUI for the game
 	*/
 	public GameInitialization(GUI gui){
