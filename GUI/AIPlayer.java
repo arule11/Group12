@@ -24,7 +24,7 @@ public class AIPlayer extends Player {
 
 	/**
 	* Computer randomly selects spots on their board to place their ships
-	* @param aiBoard : the AI players board
+	* @param aiBoard : the AI player's board
 	*/
 
 	public void setup(Board aiBoard) {
@@ -63,9 +63,9 @@ public class AIPlayer extends Player {
 	}
 	
 	/**
-	* Computer randomly selects spot on the board where their opponents ships may be
+	* Computer randomly selects spot on the board where their opponent's ships may be
 	* @param gui : the GUI
-	* @param board : the opponents board
+	* @param board : the opponent's board
 	*/
 	
 	public void guess(GUI gui, Board board) {
