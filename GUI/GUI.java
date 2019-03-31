@@ -86,7 +86,7 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* Adds a ship to the players board and the specified row and column
+	* Adds a ship to the player's board and the specified row and column
 	* @param row : the row corresponding to the selected spot on the board
 	* @param col : the column corresponding to the selected spot on the board
 	*/
@@ -97,7 +97,7 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* Allows the player to make a guess on their opponents board
+	* Allows the player to make a guess on their opponent's board
 	* @param char : the token that cooresponds to the guess
 	* @param row : the row corresponding to the selected spot on the board
 	* @param col : the column corresponding to the selected spot on the board
@@ -109,7 +109,7 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* Allows the AIplayer to make a guess on the players board
+	* Allows the AIplayer to make a guess on the player's board
 	* @param char : the token that cooresponds to the guess
 	* @param row : the row corresponding to the selected spot on the board
 	* @param col : the column corresponding to the selected spot on the board
@@ -137,14 +137,14 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* removes the horizontal and vertical buttons
+	* Removes the horizontal and vertical buttons
 	*/
 	public void removeDirections() {
 	    allBoards.getChildren().remove(direction);
 	}
 	
 	/**
-	* disables the buttons when game has ended
+	* Disables the buttons when game has ended
 	*/
 	public void disable() {
 		for (Button[] row : buttonsPlayer) {
@@ -160,7 +160,7 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* sets up buttons on player board
+	* Sets up buttons on player board
 	* @param handler : the Event handler
 	* @param row : the specified row
 	* @param col : the specified column
@@ -171,7 +171,7 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* sets up buttons on opponent board
+	* Sets up buttons on opponent board
 	* @param handler : the Event handler
 	* @param row : the specified row
 	* @param col : the specified column
@@ -183,7 +183,7 @@ public class GUI extends Application {
 	
 
 	/**
-	* sets up the horizontal button
+	* Sets up the horizontal button
 	* @param handler : the Event handler
 	*/
 	
@@ -192,7 +192,7 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* sets up the vertical button
+	* Sets up the vertical button
 	* @param handler : the Event handler
 	*/
 	public void setVertHandler(EventHandler<ActionEvent> handler){
