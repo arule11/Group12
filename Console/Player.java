@@ -13,7 +13,7 @@ package Console;
 
 
 public class Player {
-	private int num_ships = 4;
+	private int numShips = 4;
 	private int shipLength = 5;
 	
 	private int points = 0;
@@ -27,9 +27,9 @@ public class Player {
 	*/
 
 	public Player() {
-		playerShips = (new Ship[num_ships]);	
+		playerShips = (new Ship[numShips]);	
 		
-		for (int i = 0; i < getNum_ships(); i++){
+		for (int i = 0; i < getNumShips(); i++){
             Ship addPlayerShip = new Ship(shipLength);
             getPlayerShips()[i] = addPlayerShip;
             shipLength--;
@@ -40,8 +40,8 @@ public class Player {
 	* decreases the number of ships as the player places them on their board
 	*/
 	public void setupShip(){
-		if (num_ships != 0) 
-			num_ships--;
+		if (numShips != 0) 
+			numShips--;
 	}
 
 	public int getPoints() {
@@ -52,8 +52,8 @@ public class Player {
 		points++;
 	}
 
-	public int getNum_ships() {
-		return num_ships;
+	public int getNumShips() {
+		return numShips;
 	}
 
 	public Board getPlayerBoard() {
@@ -66,6 +66,10 @@ public class Player {
 
 	public Board getOppBoard() {
 		return oppBoard;
+	}
+
+	public double getShipLength() {
+		return shipLength;
 	}
 
 

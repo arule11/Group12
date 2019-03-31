@@ -21,7 +21,7 @@ public class GameInitialization {
 	private GUI gui;
 	private Player player1 = new Player();
 	private AIPlayer ai = new AIPlayer();
-	private Ship currentShip = player1.getPlayerShips()[player1.getNum_ships()-1];
+	private Ship currentShip = player1.getPlayerShips()[player1.getNumShips()-1];
 	private static final int POINTS_TO_WIN = 14;
 
 	
@@ -110,7 +110,7 @@ public class GameInitialization {
 		ship.setColumn(column);
 		gui.setMessage("Place your ships.");
 		
-		if (player1.getNum_ships() != 0) {
+		if (player1.getNumShips() != 0) {
 			if (player1.getPlayerBoard().freeSpace(ship)){	
 				player1.getPlayerBoard().addShip(ship);
 				
@@ -126,8 +126,8 @@ public class GameInitialization {
 				}	
 				
 			player1.setupShip();
-				if (player1.getNum_ships() != 0) {
-					currentShip = player1.getPlayerShips()[player1.getNum_ships()-1];	
+				if (player1.getNumShips() != 0) {
+					currentShip = player1.getPlayerShips()[player1.getNumShips()-1];	
 					gui.setShipMessage("Your ship is " + currentShip.getShipLength() + " units long. Set your direction.");
 				} else {
 					gui.setMessage("Ships ready. Prepare for battle.");

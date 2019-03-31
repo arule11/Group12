@@ -2,14 +2,11 @@ package UnitTests;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
 
 import org.junit.Test;
 
-import Console.Board;
 import Console.Player;
-import Console.Site;
-import junit.framework.Assert;
+
 
 public class PlayerTest {
 

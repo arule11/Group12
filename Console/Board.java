@@ -146,7 +146,6 @@ public class Board {
     }
 
 	public Site[][] getBoard() {
-		
 		return this.board;
 	}
 

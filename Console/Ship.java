@@ -83,7 +83,11 @@ public class Ship {
 	}
 
 	public void setShipLength(int shipLength) {
-		this.shipLength = shipLength;
+		if (shipLength > 5 || shipLength < 1 ) {
+			this.shipLength = 5;
+		} else {
+			this.shipLength = shipLength;
+		}
 	}
 	
 

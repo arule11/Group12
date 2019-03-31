@@ -206,4 +206,19 @@ public class AIPlayer extends Player {
 		
 	}
 	
+	public int getGoodRow() {
+		return goodRow;
+	}
+	
+	public int getGoodCol() {
+		return goodCol;
+	}
+	
+	public int getMisses() {
+		return misses;
+	}
+	
+	public void addMiss() {
+		misses++;
+	}
 }

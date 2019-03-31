@@ -47,7 +47,11 @@ public class Site {
 	}
 
 	public void setStatus(int status) {
-		this.status = status;
+		if (status < 4 && status > 0) {
+			this.status = status;
+		} else {
+			this.status = 0;
+		}
 	}
 	
 }
