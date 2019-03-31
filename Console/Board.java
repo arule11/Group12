@@ -1,4 +1,4 @@
-// Thie version of Battleship was written with reference to Java-Battleship
+// This version of Battleship was written with reference to Java-Battleship
 // by Yuval Marcus (github: ymarcus93)
 
 /**
@@ -34,7 +34,7 @@ public class Board {
 	}
 	
 	/**
-	* displays the game board
+	* Displays the game board
 	*/
 	
 	public void showBoard(){
@@ -54,7 +54,7 @@ public class Board {
 	/**
 	* Checks that the spot the player wishes to place their ship is not
 	* already occupied
-	* @param ship : the ship the play is placing on the board
+	* @param ship : the ship the player is placing on the board
 	* @return Returns a boolean
 	*/
 	
