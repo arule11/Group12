@@ -1,9 +1,9 @@
-// Thie version of Battleship was written with reference to Java-Battleship
+// This version of Battleship was written with reference to Java-Battleship
 // by Yuval Marcus (github: ymarcus93)
 
 /**
 * Class representing a Site. noShip, shipSite, hit, and miss are Strings and
-* status is an int. The mark of the site on the board can be changed dependiing
+* status is an int. The mark of the site on the board can be changed depending
 * on its status.
 * Javadoc by Athena McNeil-Roberts
 * Code by Kaylee Novakovski
