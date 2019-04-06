@@ -17,16 +17,16 @@ public class Site {
 	private static final String shipSite = "+";
 	private static final String hit = "X";
 	private static final String miss = "0";
-		
+
 	private int status;
-	
+
 	/**
 	* Default constructor: Initializes the site status to zero
 	*/
 	public Site() {
 		this.setStatus(0);
 	}
-	
+
 	/**
 	* Prints the mark that corresponds to the status of the site
 	*/
@@ -42,10 +42,19 @@ public class Site {
 		}
 	}
 
+	/**
+	* Gets the status
+	* @return Returns an int
+	*/
 	public int getStatus() {
 		return status;
 	}
 
+	/**
+	* sets the status to the specified status or default status if specifeid
+	* status isnt between 0 and 4
+	* @param status : the specified status
+	*/
 	public void setStatus(int status) {
 		if (status < 4 && status > 0) {
 			this.status = status;
@@ -53,5 +62,5 @@ public class Site {
 			this.status = 0;
 		}
 	}
-	
+
 }
