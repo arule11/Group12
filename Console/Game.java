@@ -4,7 +4,7 @@
 /**
 * Class representing a Game. points is of type integer. The console game can be played,
 * allowing players to place their ships on the board, and guess where their
-* opponents ships are in order to win the game.
+* opponent's ships are in order to win the game.
 * Javadoc by Athena McNeil-Roberts
 * Code by Kaylee Novakovski
 */
@@ -15,12 +15,31 @@ import java.util.*;
 
 public class Game {
 	private static int points = 14;
+	private static int guessCount = 0;
+	private static int goodRow = -1;
+	private static int goodCol = -1;
 
 	private static Scanner reader = new Scanner(System.in);
 
   public static void main(String[] args) {
-    // Players set up ships.
-    System.out.println("Welcome to Battleship");
+    // Welcome message and difficulty selection.
+    System.out.println("Welcome to Battleship. Choose a difficulty level: Type 1 for easy, 2 for medium, 3 for hard.");
+    int difficulty = reader.nextInt();
+    while (difficulty < 1 || difficulty > 3) {
+    	System.out.println("Incorrect input, please try again. Choose a difficulty level: Type 1 for easy, 2 for medium, 3 for hard.");
+    	difficulty = reader.nextInt();
+    }
+    if (difficulty == 1) {
+		System.out.println("Difficulty set to easy.");
+	}
+	if (difficulty == 2) {
+		System.out.println("Difficulty set to medium.");
+	}
+	if (difficulty == 3) {
+		System.out.println("Difficulty set to hard.");
+    }
+    
+    // Players set up their ships.
     Player player1 = new Player();
     player1.getPlayerBoard().showBoard();
     Player compPlayer = new Player();
@@ -28,10 +47,44 @@ public class Game {
     setupComp(compPlayer);
 
     // Players guess where ships are.
+    /**
+     *  *** Use this code when smartGuess is working ***
     while (player1.getPlayerBoard().getSunkShips() != points && compPlayer.getPlayerBoard().getSunkShips() != points) {
     	playerGuess(compPlayer, player1);
-      compGuess(player1, compPlayer);
+    	if (difficulty == 1) {
+    		compGuess(player1, compPlayer);
+    	}
+    	if (difficulty == 2) {
+    		smartGuess(player1, compPlayer, player1.getPlayerBoard());
+    	}
+    	if (difficulty == 3) {
+    		guessCount++;
+    		if (guessCount % 4 == 0) {
+    			makeRightGuess(player1, player1.getPlayerBoard());
+    		}
+    		else {smartGuess(player1, compPlayer, player1.getPlayerBoard());}
+    	}
     }
+    */
+    
+    while (player1.getPlayerBoard().getSunkShips() != points && compPlayer.getPlayerBoard().getSunkShips() != points) {
+    	playerGuess(compPlayer, player1);
+    	if (difficulty == 1) {
+    		compGuess(player1, compPlayer);
+    	}
+    	if (difficulty == 2) {
+    		guessCount++;
+    		if (guessCount % 4 == 0) {
+    			makeRightGuess(player1, player1.getPlayerBoard());
+    		}
+    		else {compGuess(player1, compPlayer);}
+    	}
+    	if (difficulty == 3) {
+    		makeRightGuess(player1, player1.getPlayerBoard());
+    	}
+    }
+    
+    
 
    // Game ends when all of one players ships are sunk.
     if (player1.getPlayerBoard().getSunkShips() == points) {
@@ -187,9 +240,9 @@ public class Game {
   }
 
   /**
-	* Allows player to guess a spot on the board where they believe their oppenents
+	* Allows player to guess a spot on the board where they believe their opponent's
 	* ship may be
-	* @param opponent : the guessing players opponent
+	* @param opponent : the guessing player's opponent
 	* @param guessingPlayer : the Player who is guessing
 	*/
   public static void playerGuess(Player opponent, Player guessingPlayer) {
@@ -213,8 +266,8 @@ public class Game {
   }
 
   /**
-	* Computer randomly selects spot on the board where their oppenents ships may be
-	* @param opponent : the computers opponent
+	* Computer randomly selects spot on the board where their opponent's ships may be
+	* @param opponent : the computer's opponent
 	* @param compPlayer : the computer Player
 	*/
   public static void compGuess(Player opponent, Player compPlayer) {
@@ -235,5 +288,105 @@ public class Game {
   	System.out.println("Here's your board:");
   	opponent.getPlayerBoard().showBoard();
   }
+  
+  public static void smartGuess(Player opponent, Player compPlayer, Board board) {
+	  Random random = new Random();
+		int vertOrHori = random.nextInt(2);
+		int upOrDown = random.nextInt(2);
+		int leftOrRight = random.nextInt(2);
+		int rowGuess = goodRow;
+		int colGuess = goodCol;
+		
+		if (vertOrHori == 1) {
+			if (upOrDown == 1 && goodCol + 1 < 9) {
+				colGuess++;
+			} else if (upOrDown == 1 && goodCol + 1 > 9) {
+				colGuess--;
+			} else if (upOrDown == 0 && goodCol-1 > 0) {
+				colGuess--;
+			} else if (upOrDown == 0 && goodCol-1 < 0){
+				colGuess++;
+			}
+		} else {
+			if (leftOrRight == 1 && goodRow+1 < 9) {
+				rowGuess++;
+			} else if (goodRow + 1 > 9){
+				rowGuess--;
+			} else if (leftOrRight == 0 && goodRow - 1 > 0) {
+				rowGuess--;
+			} else {
+				rowGuess++;
+			}
+		}
+		
+		int aiGuess = board.checkGuess(rowGuess, colGuess);
+		
+		while (aiGuess == -1) {
+			vertOrHori = random.nextInt(2);
+			upOrDown = random.nextInt(2);
+			leftOrRight = random.nextInt(2);
+
+			if (vertOrHori == 1) {
+				if (upOrDown == 1 && goodCol + 1 < 9) {
+					colGuess++;
+				} else if (upOrDown == 1 && goodCol + 1 > 9) {
+					colGuess--;
+				} else if (upOrDown == 0 && goodCol-1 > 0) {
+					colGuess--;
+				} else if (upOrDown == 0 && goodCol-1 < 0){
+					colGuess++;
+				}
+			} else {
+				if (leftOrRight == 1 && goodRow+1 < 9) {
+					rowGuess++;
+				} else if (goodRow +1 > 9){
+					rowGuess--;
+				} else if (leftOrRight == 0 && goodRow - 1 > 0) {
+					rowGuess--;
+				} else {
+					rowGuess++;
+				}
+			}
+			aiGuess = board.checkGuess(rowGuess, colGuess);
+
+			}
+				
+		if (aiGuess == 1) {
+			System.out.println("Your battleship was hit!");
+			goodRow = rowGuess;
+			goodCol = colGuess;
+		} 
+		else {
+			System.out.println("Your opponent missed!");	
+			goodRow = -1;
+			goodCol = -1;
+		}
+	}
+  
+  /**
+   * Computer selects a spot on their opponent's board where a ship is guaranteed to be
+   * @param opponent : the computer's opponent
+   * @param board : the computer opponent's board
+   */
+  public static void makeRightGuess(Player opponent, Board board) {
+		int rightRowGuess = 0;
+		int rightColumnGuess = 0;
+		int aiGuess;
+		
+		for(int row = 0 ; row < 10 ; row++ ){
+			 for(int column = 0 ; column < 10 ; column++ ){
+				 if (board.getBoard()[row][column].getStatus() == 1) {
+					 rightRowGuess = row;
+					 rightColumnGuess = column;
+					 column = 10;
+					 row = 10;
+				 }
+			 }
+		 }
+		
+		aiGuess = board.checkGuess(rightRowGuess, rightColumnGuess);
+		System.out.println("Your battleship was hit!");
+		opponent.getPlayerBoard().showBoard();
+	}
     
 }
