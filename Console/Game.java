@@ -67,7 +67,7 @@ public class Game {
     }
     */
     
-    while (player1.getPlayerBoard().getSunkShips() != points && compPlayer.getPlayerBoard().getSunkShips() != points) {
+     while (player1.getPlayerBoard().getSunkShips() != points && compPlayer.getPlayerBoard().getSunkShips() != points) {
     	playerGuess(compPlayer, player1);
     	if (difficulty == 1) {
     		compGuess(player1, compPlayer);
@@ -80,7 +80,11 @@ public class Game {
     		else {compGuess(player1, compPlayer);}
     	}
     	if (difficulty == 3) {
-    		makeRightGuess(player1, player1.getPlayerBoard());
+    		guessCount++;
+    		if (guessCount % 2 == 0) {
+    			makeRightGuess(player1, player1.getPlayerBoard());
+    		}
+    		else {compGuess(player1, compPlayer);}
     	}
     }
     
