@@ -289,7 +289,12 @@ public class Game {
   	opponent.getPlayerBoard().showBoard();
   }
   
-  public static void smartGuess(Player opponent, Player compPlayer, Board board) {
+  /**
+  * Computer makes a smarter than random guess where their opponent's ships may be
+  * @param opponent : the computer's opponent
+  * @param board: the computer opponent's board
+  */
+  public static void smartGuess(Player opponent, Board board) {
 	  Random random = new Random();
 		int vertOrHori = random.nextInt(2);
 		int upOrDown = random.nextInt(2);
@@ -355,12 +360,16 @@ public class Game {
 			System.out.println("Your battleship was hit!");
 			goodRow = rowGuess;
 			goodCol = colGuess;
+			System.out.println("Here's your board:");
+			opponent.getPlayerBoard().showBoard();
 		} 
 		else {
 			System.out.println("Your opponent missed!");	
 			goodRow = -1;
 			goodCol = -1;
-		}
+			}
+		System.out.println("Here's your board:");
+		opponent.getPlayerBoard().showBoard();
 	}
   
   /**
@@ -390,3 +399,4 @@ public class Game {
 	}
     
 }
+
