@@ -46,16 +46,15 @@ public class GUI extends Application {
 		*/
 		public void start(Stage primaryStage) throws FileNotFoundException{
 
-			Image starImg = new Image("/resources/star.png");
+			Image star = new Image("/resources/star.png");
 			
 			
 			GridPane playerBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
-					ImageView star = new ImageView(starImg);
-					Button b = new Button("", star);
+					Button b = new Button("", setButtonImage(star));
 					b.setStyle("-fx-base: black;");
-				    b.setContentDisplay(ContentDisplay.TOP);
+				  //  b.setContentDisplay(ContentDisplay.TOP);
 					buttonsPlayer[column][row] = b;
 					playerBoard.add(buttonsPlayer[column][row], row, column);
 				}
@@ -64,10 +63,9 @@ public class GUI extends Application {
 			GridPane oppBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
-					ImageView star = new ImageView(starImg);
-					Button b = new Button("", star);
+					Button b = new Button("", setButtonImage(star));
 					b.setStyle("-fx-base: black;");
-					b.setContentDisplay(ContentDisplay.TOP);
+					//b.setContentDisplay(ContentDisplay.TOP);
 					buttonsOpp[column][row] = b;
 					oppBoard.add(buttonsOpp[column][row], row, column);				
 				}
@@ -97,7 +95,7 @@ public class GUI extends Application {
             allBoards.setStyle("-fx-background-color: black;");
 
 
-			Scene scene = new Scene(allBoards, 1800, 800);
+			Scene scene = new Scene(allBoards, 1800, 600);
 
 			primaryStage.setTitle("Battleship");
 			primaryStage.setScene(scene);
@@ -115,8 +113,8 @@ public class GUI extends Application {
 	*/
 	public void placeToken(int row, int col) {
 		Button b = buttonsPlayer[row][col];
-		Image shipImg = new Image("/resources/ship.png");
-		b.setGraphic(new ImageView(shipImg));
+		Image ship = new Image("/resources/ship.png");
+		b.setGraphic(setButtonImage(ship));
 		b.setDisable(true);
 		b.setStyle("-fx-base: black;"+
 				"-fx-opacity: 1 ");
@@ -132,8 +130,8 @@ public class GUI extends Application {
 	public void guess(char token, int row, int col) {
 		Button b = buttonsOpp[row][col];
 		if (token == 'X') {
-			Image explodeImg = new Image("/resources/explosion.png");
-			b.setGraphic(new ImageView(explodeImg));
+			Image explode = new Image("/resources/explosion.png");
+			b.setGraphic(setButtonImage(explode));
 		} else {
 			b.setVisible(false);
 		}
@@ -152,8 +150,8 @@ public class GUI extends Application {
 	public void AIguess(char token, int row, int col) {
 		Button b = buttonsPlayer[row][col];
 		if (token == 'X') {
-			Image explodeImg = new Image("/resources/explosion.png");
-			b.setGraphic(new ImageView(explodeImg));
+			Image explode = new Image("/resources/explosion.png");
+			b.setGraphic(setButtonImage(explode));
 		} else {
 			b.setVisible(false);
 		}
@@ -240,6 +238,13 @@ public class GUI extends Application {
 	*/
 	public void setVertHandler(EventHandler<ActionEvent> handler){
 		vert.setOnAction(handler);		
+	}
+	
+	public ImageView setButtonImage(Image image) {
+		ImageView img = new ImageView(image);
+		img.setFitHeight(30);
+		img.setFitWidth(30);
+		return img;
 	}
 	
 	
