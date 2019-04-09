@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.event.*;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 public class GUI extends Application {
 
@@ -35,10 +36,10 @@ public class GUI extends Application {
 		private Button[][] buttonsOpp = new Button[10][10];
 		private Text message = new Text("Place your ships.");
 		private Text shipMessage = new Text("Your ship is 2 units long. Set your direction.");
-		private Button hori = new Button("Horizontal");
-		private Button vert = new Button("Vertical");
+		private Button hori = new Button();
+		private Button vert = new Button();
 		private GridPane allBoards = new GridPane();
-		private HBox direction = new HBox(25, hori, vert);
+		private VBox direction = new VBox(25, hori, vert);
 			
 		/**
 		* Creates the "Battleship" window and all buttons, Labels and text within the window
@@ -47,13 +48,25 @@ public class GUI extends Application {
 		public void start(Stage primaryStage) throws FileNotFoundException{
 
 			Image star = new Image("/resources/star.png");
+			Image horizontal = new Image("resources/horizontal.png");
+			Image vertical = new Image("resources/vertical.png");
+			hori.setGraphic(new ImageView(horizontal));
+			hori.setStyle("-fx-base: black;"+
+					"-fx-focus-color: transparent;" +
+					"-fx-padding:3 3 3 3;");
+			vert.setGraphic(new ImageView(vertical));
+			vert.setStyle("-fx-base: black;"+
+					"-fx-focus-color: transparent;" +
+					"-fx-padding:3 3 3 3;");
+			
 			
 			
 			GridPane playerBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
-					b.setStyle("-fx-base: black;");
+					b.setStyle("-fx-base: black;"+
+							"-fx-focus-color: transparent;");
 				  //  b.setContentDisplay(ContentDisplay.TOP);
 					buttonsPlayer[column][row] = b;
 					playerBoard.add(buttonsPlayer[column][row], row, column);
@@ -64,15 +77,18 @@ public class GUI extends Application {
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
-					b.setStyle("-fx-base: black;");
+					b.setStyle("-fx-base: black;"+
+							"-fx-focus-color: transparent;");
 					//b.setContentDisplay(ContentDisplay.TOP);
 					buttonsOpp[column][row] = b;
 					oppBoard.add(buttonsOpp[column][row], row, column);				
 				}
 			}
 			
-			Label player = new Label("Your Board");
-			Label enemy = new Label("Your Enemy's Board");	
+			Label player = new Label();
+			player.setGraphic(new ImageView(new Image("/resources/player.png")));
+			Label enemy = new Label();	
+			enemy.setGraphic(new ImageView(new Image("/resources/enemy.png")));
 			VBox messages = new VBox(5, message, shipMessage);
 			message.setFill(Color.WHITE);
 			message.setFont(Font.font(20));
@@ -91,9 +107,8 @@ public class GUI extends Application {
 			allBoards.add(enemy, 2,0);
 			allBoards.add(oppBoard, 2, 2);	
 			allBoards.add(messages, 3, 0);
-			allBoards.add(direction, 0, 1);
+			allBoards.add(direction, 1, 2);
             allBoards.setStyle("-fx-background-color: black;");
-
 
 			Scene scene = new Scene(allBoards, 1800, 600);
 
@@ -149,12 +164,14 @@ public class GUI extends Application {
 	*/
 	public void AIguess(char token, int row, int col) {
 		Button b = buttonsPlayer[row][col];
+		
 		if (token == 'X') {
 			Image explode = new Image("/resources/explosion.png");
 			b.setGraphic(setButtonImage(explode));
 		} else {
 			b.setVisible(false);
 		}
+		
 		b.setDisable(true);
 		b.setStyle("-fx-base: black;"+
 				"-fx-opacity: 1 ");
@@ -244,6 +261,7 @@ public class GUI extends Application {
 		ImageView img = new ImageView(image);
 		img.setFitHeight(30);
 		img.setFitWidth(30);
+		
 		return img;
 	}
 	
