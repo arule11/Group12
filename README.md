@@ -52,4 +52,5 @@ Battleship game used for reference (by AlmasB) < https://github.com/AlmasB/Battl
 
 Oracle javafx info < https://docs.oracle.com/javase/8/javase-clienttechnologies.htm >
 
+Graphics by Kaylee Novakovski
 
