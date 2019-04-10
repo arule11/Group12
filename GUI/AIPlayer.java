@@ -1,9 +1,10 @@
 //Based on: private dropbox CPSC219_Examples> Lecture16_OODesign by Nathaly Verwaal
 
 /**
-* Class representing an AI Player. goodRow, goodCol and misses are integers.
-* The AI is given a board and a list of ships.
-*
+* Class representing an AI Player. num_ships, shipLength and points are integers,
+* aiBoard is of type Board and aiShips is a list of Ships. The AI is given a board
+* and a list of ships.
+* 
 * Javadoc by Athena McNeil-Roberts
 * Code by Kaylee Novakovski
 */
@@ -25,8 +26,9 @@ public class AIPlayer extends Player {
 	* Computer randomly selects spots on their board to place their ships
 	* @param aiBoard : the AI player's board
 	*/
+
 	public void setup(Board aiBoard) {
-		Random random = new Random();
+		Random random = new Random(); 
 		for (Ship compShip : getPlayerShips()) {
 			compShip.setColumn(random.nextInt(10));
 			compShip.setRow(random.nextInt(10));
@@ -45,7 +47,7 @@ public class AIPlayer extends Player {
 	    		} else {
 	    			compShip.setDirection('V');
 	   			}
-			}
+			}	
 			while (aiBoard.freeSpace(compShip) == false) {
 				compShip.setColumn(random.nextInt(10));
 				compShip.setRow(random.nextInt(10));
@@ -54,35 +56,37 @@ public class AIPlayer extends Player {
 						compShip.setDirection('H');
 					} else {
 						compShip.setDirection('V');
-					}
+					}		
 			}
 			aiBoard.addShip(compShip);
 		}
 	}
-
+	
 	/**
 	* Computer randomly selects spot on the board where their opponent's ships may be
 	* @param gui : the GUI
 	* @param board : the opponent's board
 	*/
+	
 	public void guess(GUI gui, Board board) {
+
 		if (misses == 4) {
 			makeRightGuess(gui, board);
 		} else if (goodRow >= 0){
 			smartGuess(gui,board);
 		} else {
-			Random random = new Random();
+			Random random = new Random(); 
 			int rowGuess = random.nextInt(10);
 			int columnGuess = random.nextInt(10);
 			int aiGuess = board.checkGuess(rowGuess, columnGuess);
-
+	    	
 			while (aiGuess == -1) {
 				rowGuess = random.nextInt(10);
 				columnGuess = random.nextInt(10);
 				aiGuess = board.checkGuess(rowGuess, columnGuess);
 			}
 			if (aiGuess == 1) {
-				gui.setShipMessage("Your battleship was hit!");
+				gui.setShipMessage("/resources/shipHit.png");
 				addPoint();
 				gui.AIguess('X', rowGuess, columnGuess);
 				goodRow = rowGuess;
@@ -90,7 +94,7 @@ public class AIPlayer extends Player {
 				misses = 0;
 
 			} else {
-				gui.setShipMessage("Your opponent missed!");
+				gui.setShipMessage("/resources/theyMissed.png");	
 				gui.AIguess('0', rowGuess, columnGuess);
 				goodRow = -1;
 				goodCol = -1;
@@ -99,12 +103,7 @@ public class AIPlayer extends Player {
 		}
 
 	}
-
-	/**
-	* Computer selects spot on the board around the area where a ship has been hit
-	* @param gui : the GUI
-	* @param board : the opponent's board
-	*/
+	
 	public void smartGuess(GUI gui, Board board) {
 		Random random = new Random();
 		int vertOrHori = random.nextInt(2);
@@ -112,7 +111,7 @@ public class AIPlayer extends Player {
 		int leftOrRight = random.nextInt(2);
 		int rowGuess = goodRow;
 		int colGuess = goodCol;
-
+		
 		if (vertOrHori == 1) {
 			if (upOrDown == 1 && goodCol + 1 < 9) {
 				colGuess++;
@@ -134,9 +133,9 @@ public class AIPlayer extends Player {
 				rowGuess++;
 			}
 		}
-
+		
 		int aiGuess = board.checkGuess(rowGuess, colGuess);
-
+		
 		while (aiGuess == -1) {
 			vertOrHori = random.nextInt(2);
 			upOrDown = random.nextInt(2);
@@ -166,32 +165,27 @@ public class AIPlayer extends Player {
 			aiGuess = board.checkGuess(rowGuess, colGuess);
 
 			}
-
+				
 		if (aiGuess == 1) {
-			gui.setShipMessage("Your battleship was hit!");
+			gui.setShipMessage("/resources/shipHit.png");
 			addPoint();
 			gui.AIguess('X', rowGuess, colGuess);
 			goodRow = rowGuess;
 			goodCol = colGuess;
 		} else {
-			gui.setShipMessage("Your opponent missed!");
+			gui.setShipMessage("/resources/theyMissed.png");	
 			gui.AIguess('0', rowGuess, colGuess);
 			goodRow = -1;
 			goodCol = -1;
 		}
 	}
 
-
-	/**
-	* Computer selects spot on the board where their opponent's ships is
-	* @param gui : the GUI
-	* @param board : the opponent's board
-	*/
+	
 	public void makeRightGuess(GUI gui, Board board) {
 		int rowGuess = 0;
 		int columnGuess = 0;
 		int aiGuess;
-
+		
 		 for(int row = 0 ; row < 10 ; row++ ){
 			 for(int column = 0 ; column < 10 ; column++ ){
 				 if (board.getBoard()[row][column].getStatus() == 1) {
@@ -202,44 +196,29 @@ public class AIPlayer extends Player {
 				 }
 			 }
 		 }
-
+		
 		aiGuess = board.checkGuess(rowGuess, columnGuess);
-		gui.setShipMessage("Your battleship was hit!");
+		gui.setShipMessage("/resources/shipHit.png");
 		addPoint();
 		gui.AIguess('X', rowGuess, columnGuess);
 		goodRow = rowGuess;
 		goodCol = columnGuess;
 		misses = 0;
-
+		
 	}
-
-	/**
-	* Gets goodRow
-	* @return Returns an int
-	*/
+	
 	public int getGoodRow() {
 		return goodRow;
 	}
-
-	/**
-	* Gets goodCol
-	* @return Returns an int
-	*/
+	
 	public int getGoodCol() {
 		return goodCol;
 	}
-
-	/**
-	* Gets misses
-	* @return Returns an int
-	*/
+	
 	public int getMisses() {
 		return misses;
 	}
-
-	/**
-	* increases the misses by one
-	*/
+	
 	public void addMiss() {
 		misses++;
 	}

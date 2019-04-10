@@ -12,12 +12,16 @@
 
 package GUI;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -34,12 +38,13 @@ public class GUI extends Application {
 
 		private Button[][] buttonsPlayer = new Button[10][10];
 		private Button[][] buttonsOpp = new Button[10][10];
-		private Text message = new Text("Place your ships.");
-		private Text shipMessage = new Text("Your ship is 2 units long. Set your direction.");
+		private Label message = new Label();
+		private Label shipMessage = new Label();
 		private Button hori = new Button();
 		private Button vert = new Button();
 		private GridPane allBoards = new GridPane();
 		private VBox direction = new VBox(25, hori, vert);
+		private AudioClip explosionSound = new AudioClip(this.getClass().getResource("/resources/explode.mp3").toExternalForm());
 			
 		/**
 		* Creates the "Battleship" window and all buttons, Labels and text within the window
@@ -59,15 +64,12 @@ public class GUI extends Application {
 					"-fx-focus-color: transparent;" +
 					"-fx-padding:3 3 3 3;");
 			
-			
-			
 			GridPane playerBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
-					b.setStyle("-fx-base: black;"+
+					b.setStyle("-fx-base: transparent;"+
 							"-fx-focus-color: transparent;");
-				  //  b.setContentDisplay(ContentDisplay.TOP);
 					buttonsPlayer[column][row] = b;
 					playerBoard.add(buttonsPlayer[column][row], row, column);
 				}
@@ -77,9 +79,8 @@ public class GUI extends Application {
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
-					b.setStyle("-fx-base: black;"+
+					b.setStyle("-fx-base: transparent;"+
 							"-fx-focus-color: transparent;");
-					//b.setContentDisplay(ContentDisplay.TOP);
 					buttonsOpp[column][row] = b;
 					oppBoard.add(buttonsOpp[column][row], row, column);				
 				}
@@ -90,27 +91,25 @@ public class GUI extends Application {
 			Label enemy = new Label();	
 			enemy.setGraphic(new ImageView(new Image("/resources/enemy.png")));
 			VBox messages = new VBox(5, message, shipMessage);
-			message.setFill(Color.WHITE);
-			message.setFont(Font.font(20));
-			shipMessage.setFill(Color.WHITE);
-			shipMessage.setFont(Font.font(20));
-		    player.setTextFill(Color.WHITE);
-		    enemy.setTextFill(Color.WHITE);
+			
+			message.setGraphic(new ImageView(new Image("/resources/2ships.png")));
+			shipMessage.setGraphic(new ImageView(new Image("/resources/setDir.png")));
 
 			new GameInitialization(this);
 			
 			allBoards.setHgap(20);
 			allBoards.setVgap(20);
 			allBoards.setPadding(new Insets(20,20,20,20));
-			allBoards.add(player, 0, 0);
-			allBoards.add(playerBoard, 0, 2);
-			allBoards.add(enemy, 2,0);
-			allBoards.add(oppBoard, 2, 2);	
+			allBoards.add(enemy, 0, 0);
+			allBoards.add(oppBoard, 0, 2);
+			allBoards.add(player, 2,0);
+			allBoards.add(playerBoard, 2, 2);	
 			allBoards.add(messages, 3, 0);
-			allBoards.add(direction, 1, 2);
-            allBoards.setStyle("-fx-background-color: black;");
+			allBoards.add(direction, 3, 2);
+            //allBoards.setStyle("-fx-background-color: black;");
+			allBoards.setStyle(" -fx-background-image: url('/resources/background.jpg');");
 
-			Scene scene = new Scene(allBoards, 1800, 600);
+			Scene scene = new Scene(allBoards, 1550, 600);
 
 			primaryStage.setTitle("Battleship");
 			primaryStage.setScene(scene);
@@ -131,8 +130,9 @@ public class GUI extends Application {
 		Image ship = new Image("/resources/ship.png");
 		b.setGraphic(setButtonImage(ship));
 		b.setDisable(true);
-		b.setStyle("-fx-base: black;"+
+		b.setStyle("-fx-base: transparent;"+
 				"-fx-opacity: 1 ");
+		shipMessage.setGraphic(new ImageView(new Image("/resources/setDir.png")));
 		
 	}
 	
@@ -146,12 +146,14 @@ public class GUI extends Application {
 		Button b = buttonsOpp[row][col];
 		if (token == 'X') {
 			Image explode = new Image("/resources/explosion.png");
-			b.setGraphic(setButtonImage(explode));
+			b.setGraphic(setButtonImage(explode)); 
+			explosionSound.play();
+			
 		} else {
 			b.setVisible(false);
 		}
 		b.setDisable(true);
-		b.setStyle("-fx-base: black;"+
+		b.setStyle("-fx-base: transparent;"+
 				"-fx-opacity: 1 ");
 		
 	}
@@ -168,6 +170,7 @@ public class GUI extends Application {
 		if (token == 'X') {
 			Image explode = new Image("/resources/explosion.png");
 			b.setGraphic(setButtonImage(explode));
+			explosionSound.play();
 		} else {
 			b.setVisible(false);
 		}
@@ -183,15 +186,20 @@ public class GUI extends Application {
 	* @param newMessage : the specified message to display
 	*/
 	public void setMessage(String newMessage) {
-		message.setText(newMessage);
+		message.setGraphic(new ImageView(new Image(newMessage)));
 	}
 	
 	/**
 	* Sets the message about your current ship on the board to the specified message
 	* @param newMessage : the specified message to display
 	*/
-	public void setShipMessage(String newMessage) {
-		shipMessage.setText(newMessage);
+	public void setShipMessage(String message) {
+		if (message.equals("clear")){
+			shipMessage.setVisible(false);
+		} else {
+		shipMessage.setVisible(true);;
+		shipMessage.setGraphic(new ImageView(new Image(message)));
+		}
 	}
 	
 	/**
@@ -205,6 +213,7 @@ public class GUI extends Application {
 	* Disables the buttons when game has ended
 	*/
 	public void disable() {
+		shipMessage.setVisible(false);
 		for (Button[] row : buttonsPlayer) {
 			for (Button b : row) {
 				b.setDisable(true);
