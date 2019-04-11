@@ -15,6 +15,7 @@ import Console.Player;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.Stage;
 
 
 public class GameInitialization {
@@ -102,6 +103,13 @@ public class GameInitialization {
 			} 
 	}	
 	
+	public class HandleNewGame implements EventHandler<ActionEvent> {
+		public void handle(ActionEvent event){
+			gui.newGame();
+		}
+	}
+
+	
 	/**
 	* Adds the specified ship to the player's board
 	* @param ship: the ship the player is placing on the board
@@ -161,12 +169,15 @@ public class GameInitialization {
 		if (player1.getPoints() == POINTS_TO_WIN) {
 		//	gui.setMessage("You win!");
 			gui.setMessage("/resources/youWon.png");
+			gui.setNewGameHandler(new HandleNewGame());
 			return true;
 		} else if (ai.getPoints() == POINTS_TO_WIN) {
 		//	gui.setMessage("You lose!");
 			gui.setMessage("/resources/youLost.png");
+			gui.setNewGameHandler(new HandleNewGame());
 			return true;
 		}
+		
 		return false;
 	}
 		
