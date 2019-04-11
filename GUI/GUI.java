@@ -35,7 +35,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 public class GUI extends Application {
-
+		
+		private Button playAgain = new Button();
 		private Button[][] buttonsPlayer = new Button[10][10];
 		private Button[][] buttonsOpp = new Button[10][10];
 		private Label message = new Label();
@@ -43,16 +44,19 @@ public class GUI extends Application {
 		private Button hori = new Button();
 		private Button vert = new Button();
 		private GridPane allBoards = new GridPane();
+		private GridPane playerBoard = new GridPane();
+		private GridPane oppBoard = new GridPane();
 		private VBox direction = new VBox(25, hori, vert);
 		private AudioClip explosionSound = new AudioClip(this.getClass().getResource("/resources/explode.mp3").toExternalForm());
-			
+		private Image star = new Image("/resources/star.png");
+		
 		/**
 		* Creates the "Battleship" window and all buttons, Labels and text within the window
 		* @param primaryStage The stage for "Battleship"
 		*/
 		public void start(Stage primaryStage) throws FileNotFoundException{
 
-			Image star = new Image("/resources/star.png");
+			
 			Image horizontal = new Image("resources/horizontal.png");
 			Image vertical = new Image("resources/vertical.png");
 			hori.setGraphic(new ImageView(horizontal));
@@ -64,7 +68,7 @@ public class GUI extends Application {
 					"-fx-focus-color: transparent;" +
 					"-fx-padding:3 3 3 3;");
 			
-			GridPane playerBoard = new GridPane();
+			//GridPane playerBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
@@ -75,7 +79,7 @@ public class GUI extends Application {
 				}
 			}
 			
-			GridPane oppBoard = new GridPane();
+			//GridPane oppBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
@@ -213,7 +217,12 @@ public class GUI extends Application {
 	* Disables the buttons when game has ended
 	*/
 	public void disable() {
+		playAgain.setGraphic(new ImageView(new Image("/resources/playAgain.png")));
+		playAgain.setStyle("-fx-base: black;"+
+				"-fx-focus-color: transparent;" +
+				"-fx-padding:3 3 3 3;");
 		shipMessage.setVisible(false);
+		allBoards.add(playAgain, 3, 2);
 		for (Button[] row : buttonsPlayer) {
 			for (Button b : row) {
 				b.setDisable(true);
@@ -248,7 +257,6 @@ public class GUI extends Application {
 		buttonsOpp[row][col].setOnAction(handler);		
 	}
 	
-
 	/**
 	* Sets up the horizontal button
 	* @param handler : the Event handler
@@ -266,10 +274,48 @@ public class GUI extends Application {
 		vert.setOnAction(handler);		
 	}
 	
+	public void setNewGameHandler(EventHandler<ActionEvent> handler) {
+		playAgain.setOnAction(handler);
+	}
+	
+	public void newGame() {
+		playerBoard.getChildren().clear();
+		oppBoard.getChildren().clear();
+		allBoards.getChildren().remove(playAgain);
+		allBoards.add(direction, 3, 2);
+
+		
+		for (int row = 0; row < 10; row++) {
+			for (int column = 0; column < 10; column++){
+				Button b = new Button("", setButtonImage(star));
+				b.setStyle("-fx-base: transparent;"+
+						"-fx-focus-color: transparent;");
+				buttonsPlayer[column][row] = b;
+				playerBoard.add(buttonsPlayer[column][row], row, column);
+			}
+		}
+		for (int row = 0; row < 10; row++) {
+			for (int column = 0; column < 10; column++){
+				Button b = new Button("", setButtonImage(star));
+				b.setStyle("-fx-base: transparent;"+
+						"-fx-focus-color: transparent;");
+				buttonsOpp[column][row] = b;
+				oppBoard.add(buttonsOpp[column][row], row, column);				
+			}
+		}
+		
+		setShipMessage("/resources/setDir.png");
+		setMessage("/resources/2ships.png");
+		
+		new GameInitialization(this);
+
+		
+	}
+	
 	public ImageView setButtonImage(Image image) {
 		ImageView img = new ImageView(image);
-		img.setFitHeight(30);
-		img.setFitWidth(30);
+		img.setFitHeight(20);
+		img.setFitWidth(20);
 		
 		return img;
 	}
