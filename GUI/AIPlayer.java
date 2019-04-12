@@ -104,6 +104,11 @@ public class AIPlayer extends Player {
 
 	}
 	
+	/**
+	* Computer randomly selects a location next to their last guess if the last guess was correct.
+	* @param gui : the GUI
+	* @param board : the opponent's board
+	*/
 	public void smartGuess(GUI gui, Board board) {
 		Random random = new Random();
 		int vertOrHori = random.nextInt(2);
@@ -180,7 +185,11 @@ public class AIPlayer extends Player {
 		}
 	}
 
-	
+	/**
+	* Computer is forced to guess a spot which is guaranteed correct after it misses four in a row.
+	* @param gui : the GUI
+	* @param board : the opponent's board
+	*/
 	public void makeRightGuess(GUI gui, Board board) {
 		int rowGuess = 0;
 		int columnGuess = 0;
@@ -207,18 +216,33 @@ public class AIPlayer extends Player {
 		
 	}
 	
+	/**
+	* Returns the last row guessed if it was correct.
+	* @return Returns goodRow of type int
+	*/
 	public int getGoodRow() {
 		return goodRow;
 	}
 	
+	/**
+	* Returns the last column guessed if it was correct.
+	* @return Returns goodCol of type int
+	*/
 	public int getGoodCol() {
 		return goodCol;
 	}
 	
+	/**
+	* Returns number of misses computer has made in a row.
+	* @return Returns misses of type int
+	*/
 	public int getMisses() {
 		return misses;
 	}
 	
+	/**
+	* Adds 1 to AI Player's counted misses when it guesses wrong.
+	*/
 	public void addMiss() {
 		misses++;
 	}

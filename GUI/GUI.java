@@ -12,27 +12,18 @@
 
 package GUI;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.event.*;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 
 public class GUI extends Application {
 		
@@ -68,7 +59,6 @@ public class GUI extends Application {
 					"-fx-focus-color: transparent;" +
 					"-fx-padding:3 3 3 3;");
 			
-			//GridPane playerBoard = new GridPane();
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
@@ -78,8 +68,7 @@ public class GUI extends Application {
 					playerBoard.add(buttonsPlayer[column][row], row, column);
 				}
 			}
-			
-			//GridPane oppBoard = new GridPane();
+
 			for (int row = 0; row < 10; row++) {
 				for (int column = 0; column < 10; column++){
 					Button b = new Button("", setButtonImage(star));
@@ -110,7 +99,6 @@ public class GUI extends Application {
 			allBoards.add(playerBoard, 2, 2);	
 			allBoards.add(messages, 3, 0);
 			allBoards.add(direction, 3, 2);
-            //allBoards.setStyle("-fx-background-color: black;");
 			allBoards.setStyle(" -fx-background-image: url('/resources/background.jpg');");
 
 			Scene scene = new Scene(allBoards, 1550, 600);
@@ -223,6 +211,7 @@ public class GUI extends Application {
 				"-fx-padding:3 3 3 3;");
 		shipMessage.setVisible(false);
 		allBoards.add(playAgain, 3, 2);
+		
 		for (Button[] row : buttonsPlayer) {
 			for (Button b : row) {
 				b.setDisable(true);
@@ -298,6 +287,7 @@ public class GUI extends Application {
 				playerBoard.add(buttonsPlayer[column][row], row, column);
 			}
 		}
+		
 		for (int row = 0; row < 10; row++) {
 			for (int column = 0; column < 10; column++){
 				Button b = new Button("", setButtonImage(star));
@@ -315,7 +305,7 @@ public class GUI extends Application {
 	}
 	
 	/**
-	* Sets the button to the specific image
+	* Method for resizing images to fit the board grid buttons.
 	* @param image : the specific image
 	* @return Returns an ImageView
 	*/
