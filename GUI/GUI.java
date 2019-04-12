@@ -241,7 +241,6 @@ public class GUI extends Application {
 	* @param row : the specified row
 	* @param col : the specified column
 	*/
-	
 	public void setPlayerButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
 		buttonsPlayer[row][col].setOnAction(handler);		
 	}
@@ -252,7 +251,6 @@ public class GUI extends Application {
 	* @param row : the specified row
 	* @param col : the specified column
 	*/
-	
 	public void setOppButtonHandler(EventHandler<ActionEvent> handler, int row, int col){
 		buttonsOpp[row][col].setOnAction(handler);		
 	}
@@ -261,7 +259,6 @@ public class GUI extends Application {
 	* Sets up the horizontal button
 	* @param handler : the Event handler
 	*/
-	
 	public void setHoriHandler(EventHandler<ActionEvent> handler){
 		hori.setOnAction(handler);		
 	}
@@ -274,10 +271,17 @@ public class GUI extends Application {
 		vert.setOnAction(handler);		
 	}
 	
+	/**
+	* Sets up the replay button
+	* @param handler : the Event handler
+	*/
 	public void setNewGameHandler(EventHandler<ActionEvent> handler) {
 		playAgain.setOnAction(handler);
 	}
 	
+	/**
+	* initializes everything to restart the game
+	*/
 	public void newGame() {
 		playerBoard.getChildren().clear();
 		oppBoard.getChildren().clear();
@@ -308,10 +312,13 @@ public class GUI extends Application {
 		setMessage("/resources/2ships.png");
 		
 		new GameInitialization(this);
-
-		
 	}
 	
+	/**
+	* Sets the button to the specific image
+	* @param image : the specific image
+	* @return Returns an ImageView
+	*/
 	public ImageView setButtonImage(Image image) {
 		ImageView img = new ImageView(image);
 		img.setFitHeight(20);
