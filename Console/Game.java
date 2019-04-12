@@ -22,7 +22,19 @@ public class Game {
   public static void main(String[] args) {
     // Welcome message and difficulty selection.
     System.out.println("Welcome to Battleship. Choose a difficulty level: Type 1 for easy, 2 for medium, 3 for hard.");
-    int difficulty = reader.nextInt();
+    boolean check = true;  
+    int difficulty = 0;
+    while(check) {
+    	try {
+    	difficulty = reader.nextInt();
+    	check = false;
+    	
+    	} catch (InputMismatchException ime) {
+    		System.out.println("Not a Number. Choose a difficulty level: Type 1 for easy, 2 for medium, 3 for hard.");
+        	reader.nextLine();
+    	}
+    }
+    
     while (difficulty < 1 || difficulty > 3) {
     	System.out.println("Incorrect input, please try again. Choose a difficulty level: Type 1 for easy, 2 for medium, 3 for hard.");
     	difficulty = reader.nextInt();
