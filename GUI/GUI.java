@@ -37,7 +37,7 @@ public class GUI extends Application {
 		private GridPane allBoards = new GridPane();
 		private GridPane playerBoard = new GridPane();
 		private GridPane oppBoard = new GridPane();
-		private VBox direction = new VBox(25, hori, vert);
+		private HBox direction = new HBox(25, hori, vert);
 		private AudioClip explosionSound = new AudioClip(this.getClass().getResource("/resources/explode.mp3").toExternalForm());
 		private Image star = new Image("/resources/star.png");
 		
@@ -47,7 +47,10 @@ public class GUI extends Application {
 		*/
 		public void start(Stage primaryStage) throws FileNotFoundException{
 
-			
+			playAgain.setGraphic(new ImageView(new Image("/resources/playAgain.png")));
+			playAgain.setStyle("-fx-base: black;"+
+					"-fx-focus-color: transparent;" +
+					"-fx-padding:3 3 3 3;");
 			Image horizontal = new Image("resources/horizontal.png");
 			Image vertical = new Image("resources/vertical.png");
 			hori.setGraphic(new ImageView(horizontal));
@@ -83,7 +86,7 @@ public class GUI extends Application {
 			player.setGraphic(new ImageView(new Image("/resources/player.png")));
 			Label enemy = new Label();	
 			enemy.setGraphic(new ImageView(new Image("/resources/enemy.png")));
-			VBox messages = new VBox(5, message, shipMessage);
+			VBox messages = new VBox(message, shipMessage);
 			
 			message.setGraphic(new ImageView(new Image("/resources/2ships.png")));
 			shipMessage.setGraphic(new ImageView(new Image("/resources/setDir.png")));
@@ -97,11 +100,15 @@ public class GUI extends Application {
 			allBoards.add(oppBoard, 0, 2);
 			allBoards.add(player, 2,0);
 			allBoards.add(playerBoard, 2, 2);	
-			allBoards.add(messages, 3, 0);
-			allBoards.add(direction, 3, 2);
+			allBoards.add(messages, 0, 3);
+			allBoards.add(direction, 2, 3);
+			allBoards.add(playAgain, 3,2);
+			playAgain.setDisable(true);
+			playAgain.setVisible(false);
+
 			allBoards.setStyle(" -fx-background-image: url('/resources/background.jpg');");
 
-			Scene scene = new Scene(allBoards, 1550, 600);
+			Scene scene = new Scene(allBoards, 2560,1600);
 
 			primaryStage.setTitle("Battleship");
 			primaryStage.setScene(scene);
@@ -198,19 +205,19 @@ public class GUI extends Application {
 	* Removes the horizontal and vertical buttons
 	*/
 	public void removeDirections() {
-	    allBoards.getChildren().remove(direction);
+		hori.setVisible(false);
+		vert.setVisible(false);
+		hori.setDisable(true);
+		vert.setDisable(true);
 	}
 	
 	/**
 	* Disables the buttons when game has ended
 	*/
 	public void disable() {
-		playAgain.setGraphic(new ImageView(new Image("/resources/playAgain.png")));
-		playAgain.setStyle("-fx-base: black;"+
-				"-fx-focus-color: transparent;" +
-				"-fx-padding:3 3 3 3;");
+		playAgain.setVisible(true);
+		playAgain.setDisable(false);
 		shipMessage.setVisible(false);
-		allBoards.add(playAgain, 3, 2);
 		
 		for (Button[] row : buttonsPlayer) {
 			for (Button b : row) {
@@ -274,9 +281,12 @@ public class GUI extends Application {
 	public void newGame() {
 		playerBoard.getChildren().clear();
 		oppBoard.getChildren().clear();
-		allBoards.getChildren().remove(playAgain);
-		allBoards.add(direction, 3, 2);
-
+		playAgain.setDisable(true);
+		playAgain.setVisible(false);
+		hori.setVisible(true);
+		vert.setVisible(true);
+		hori.setDisable(false);
+		vert.setDisable(false);
 		
 		for (int row = 0; row < 10; row++) {
 			for (int column = 0; column < 10; column++){
@@ -311,8 +321,8 @@ public class GUI extends Application {
 	*/
 	public ImageView setButtonImage(Image image) {
 		ImageView img = new ImageView(image);
-		img.setFitHeight(20);
-		img.setFitWidth(20);
+		img.setFitHeight(30);
+		img.setFitWidth(30);
 		
 		return img;
 	}
