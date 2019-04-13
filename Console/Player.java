@@ -15,9 +15,9 @@ package Console;
 public class Player {
 	private int numShips = 4;
 	private int shipLength = 5;
-
+	
+	// To test end of game, change points to 13.
 	private int points = 0;
-	//private int points = 13;
 
 	private Ship[] playerShips;
 	private Board playerBoard = new Board();
