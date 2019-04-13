@@ -32,7 +32,7 @@ javafx
 
 ## Class Diagram
 
-<img width="713" alt="Class Diagram" src="https://user-images.githubusercontent.com/47372331/55692559-86865e80-5966-11e9-835d-9500d2caf339.png">
+<img width="610" alt="Screen Shot 2019-04-12 at 7 21 43 PM" src="https://user-images.githubusercontent.com/47372331/56072925-91bbfe80-5d59-11e9-8b0f-9ae65755c210.png">
 
 ## References
 
