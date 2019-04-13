@@ -17,6 +17,7 @@ public class Player {
 	private int shipLength = 5;
 
 	private int points = 0;
+	//private int points = 13;
 
 	private Ship[] playerShips;
 	private Board playerBoard = new Board();

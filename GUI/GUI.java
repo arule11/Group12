@@ -37,7 +37,7 @@ public class GUI extends Application {
 		private GridPane allBoards = new GridPane();
 		private GridPane playerBoard = new GridPane();
 		private GridPane oppBoard = new GridPane();
-		private HBox direction = new HBox(25, hori, vert);
+		private HBox direction = new HBox(50, hori, vert);
 		private AudioClip explosionSound = new AudioClip(this.getClass().getResource("/resources/explode.mp3").toExternalForm());
 		private Image star = new Image("/resources/star.png");
 		
@@ -105,7 +105,16 @@ public class GUI extends Application {
 			allBoards.add(playAgain, 3,2);
 			playAgain.setDisable(true);
 			playAgain.setVisible(false);
-
+			
+		    direction.setPadding(new Insets(50, 0,0, 75));
+		    messages.setPadding(new Insets(0, 0,0, 20));
+		    
+			GridPane.setHalignment(enemy, javafx.geometry.HPos.CENTER);
+			GridPane.setHalignment(player, javafx.geometry.HPos.CENTER);
+			GridPane.setHalignment(oppBoard, javafx.geometry.HPos.CENTER);
+			GridPane.setHalignment(playerBoard, javafx.geometry.HPos.CENTER);			
+			
+		//	allBoards.setGridLinesVisible(true);
 			allBoards.setStyle(" -fx-background-image: url('/resources/background.jpg');");
 
 			Scene scene = new Scene(allBoards, 2560,1600);
@@ -175,7 +184,7 @@ public class GUI extends Application {
 		}
 		
 		b.setDisable(true);
-		b.setStyle("-fx-base: black;"+
+		b.setStyle("-fx-base: transparent;"+
 				"-fx-opacity: 1 ");
 
 	}
