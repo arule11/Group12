@@ -33,8 +33,9 @@ In Eclipse
 6. Click the ‘Add External JAR’ button on the right of the window.
 7. From the cloned desktop folder, select ‘jfxrt.jar’ and click Open.
 8. Click Apply and Close.
-9. To play the console version, right click the Game class and click Run as Java Application.
-10. To play the graphical version, right click the GUI class and click Run as Java Application.
+9. To play the console version: Open the Console window under Window -> Show View. 
+10. Right click the Game class and click Run as Java Application. 
+11. To play the graphical version: Right click the GUI class and click Run as Java Application.
   
 ## Requirements
 
