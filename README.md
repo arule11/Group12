@@ -54,3 +54,4 @@ Oracle javafx info < https://docs.oracle.com/javase/8/javase-clienttechnologies.
 
 Graphics by Kaylee Novakovski
 
+Explosion Sound Effect <https://www.youtube.com/watch?v=nRwM7UEQ8Q0&t=11s>
